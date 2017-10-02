@@ -8,255 +8,375 @@ var config = {
 };
 
 firebase.initializeApp(config);
-var database = firebase.database();
 
 var allCardsArray = [];
-var player, computer;
+var player, computer, currentUser;
 
-function Player(name, deck) {
-    this.name = name;
-    this.deck = deck;
-    this.hand = [];
-    this.last = {};
-    this.discard = [];
-    this.cardCount = this.deck.length;
-    this.shuffle = function(){
-        var currentIndex = this.deck.length, temporaryValue, randomIndex;
+$(document).ready(function() {
 
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
+    $("#signIn").hide();
 
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
+    function Player(name, deck) {
+        this.name = name;
+        this.deck = deck;
+        this.hand = [];
+        this.last = {};
+        this.discard = [];
+        this.cardCount = this.deck.length;
+        this.shuffle = function(){
+            var currentIndex = this.deck.length, temporaryValue, randomIndex;
 
-            // And swap it with the current element.
-            temporaryValue = this.deck[currentIndex];
-            this.deck[currentIndex] = this.deck[randomIndex];
-            this.deck[randomIndex] = temporaryValue;
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = this.deck[currentIndex];
+                this.deck[currentIndex] = this.deck[randomIndex];
+                this.deck[randomIndex] = temporaryValue;
+            }
         }
-    }
-    // Play a card, paramaters represent position in hand and boolean if card is destroyed
-    this.playCard = function(num, destroy){
-        if (!destroy){
-            if (this.cardCount >= 3) {
-                // Add the played card to the last played card area and discard array
-                this.last = this.hand[num];
-                this.discard.push(this.hand[num]);
+        // Play a card, paramaters represent position in hand and boolean if card is destroyed
+        this.playCard = function(num, destroy){
+            if (!destroy){
+                if (this.cardCount >= 3) {
+                    // Add the played card to the last played card area and discard array
+                    this.last = this.hand[num];
+                    this.discard.push(this.hand[num]);
+                    // Remove the card from the hand array
+                    this.hand.splice(num,1);
+                }
+            }
+            else {
+                this.cardCount--;
                 // Remove the card from the hand array
                 this.hand.splice(num,1);
             }
+            
         }
-        else {
-            this.cardCount--;
-            // Remove the card from the hand array
-            this.hand.splice(num,1);
+        this.drawCard = function(){
+            if (this.deck.length === 0) {
+                this.deck = this.discard;
+                this.shuffle();
+                this.discard = [];
+                this.last = {};
+            }
+            // You can only draw up to 3 cards
+            if (this.hand.length < 3 && this.cardCount >= 3){
+                this.hand.push(this.deck[0]);   
+                this.deck.shift();
+            }
+            
         }
-        
     }
-    this.drawCard = function(){
-        if (this.deck.length === 0) {
-            this.deck = this.discard;
-            this.shuffle();
-            this.discard = [];
-            this.last = {};
-        }
-        // You can only draw up to 3 cards
-        if (this.hand.length < 3 && this.cardCount >= 3){
-            this.hand.push(this.deck[0]);   
-            this.deck.shift();
-        }
-        
-    }
-}
 
-$("#start").on("click", function(){
-    $.post("/deckbuilder", function(data) {
+    $("#start").on("click", function(){
+        $.post("/deckbuilder", function(data) {
+
+        });
+    });
+
+    $("#arena").on("click", function(){
+        $.get("/allcards", function(data){  
+            allCardsArray = data; 
+            console.log("Cards loaded");
+        })
+    });
+
+    $("#setup").on("click", function(){
+        setUpPlayers();
+        console.log("Players setup");
+        console.log(player);
+        console.log(computer);
+    });
+
+    $("#battle").on("click", function(){
+        updateCards();
+    });
+
+    $("#signInBtn").on("click", function(){
+        event.preventDefault();
+
+        currentUser = $("#signInName").val().trim();
+        var password = $("#signInPass").val().trim();
+
+        var user = {
+            username: currentUser,
+            password: password
+        }
+
+        $.post("/signin/"+currentUser, user, function(data){
+
+            if(data.success) {
+                window.location.assign("/deckbuilder")
+            }
+            else {
+                $(".errMsg").html(data.message);
+                $("#signInName, #signInPass").val("");
+            }
+        })
 
     });
-});
 
-$("#arena").on("click", function(){
-    $.get("/allcards", function(data){  
-        allCardsArray = data; 
-        console.log("Cards loaded");
+    $("#signUpBtn").on("click", function(){
+        event.preventDefault();
+
+        var email = $("#signUpEmail").val().trim();
+        currentUser = $("#signUpName").val().trim();
+        var password = $("#signUpPass").val().trim();
+        var checkPass = $("#passwordConfirm").val().trim();
+
+        if (currentUser === "") {
+            $(".errMsg").html("Please enter a user name");
+            $("#signUpPass, #passwordConfirm").val("");
+        }
+        else if (email === "") {
+            $(".errMsg").html("Please enter an email address");
+            $("#signUpPass, #passwordConfirm").val("");
+        }
+        else if (password === "") {
+            $(".errMsg").html("Please enter a password");
+            $("#signUpPass, #passwordConfirm").val("");
+        }
+        else if (password === checkPass){
+            firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
+                
+                // Set users display name
+                var user = firebase.auth().currentUser;
+                user.updateProfile({
+                    displayName: currentUser
+                }).catch(function(error) {});
+                
+                // Clear input fields
+                $("#signUpEmail, #signUpName, #signUpPass, #passwordConfirm").val("");
+
+                window.location.assign("/deckbuilder");
+
+            }).catch(function(error) {
+                
+                //  Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                $(".errMsg").html(errorMessage);
+                $("#signUpEmail, #signUpName, #signUpPass, #passwordConfirm").val("");
+            });
+        }
+        else {
+            $(".errMsg").html("Passwords do not match");
+            $("#signUpEmail, #signUpName, #signUpPass, #passwordConfirm").val("");
+        }
+    });
+
+    $("#logOutBtn").on("click", function(){
+        firebase.auth().signOut();
+    });
+
+    $("#switchToSignUp").on("click", function(){
+        $("#signIn").hide();
+        $("#signUp").show();
+        $(".errMsg").html("");
+    });
+
+    $("#switchToSignIn").on("click", function(){
+        $("#signIn").show();
+        $("#signUp").hide();
+        $(".errMsg").html("");
+    });
+
+    $(".playercard").on("click", function(){
+        var num = ($(this).attr("data"));
+        // Computer pick a random card
+        var compChoice = Math.floor(Math.random()*(computer.hand.length));
+        var compCard = computer.hand[compChoice];
+        // Outcome is decided by battle function
+        var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number, 
+                            parseInt(compCard.color.charAt(0)), compCard.number);
+        console.log("Player played: " + player.hand[num].color + " " + player.hand[num].number);
+        console.log("Computer played: " + compCard.color + " " + compCard.number);
+        console.log(outcome);
+        // Depending on outcome, call proper playCard functions on each player
+        switch (outcome) {
+            case "win":
+                player.playCard(num, false);
+                computer.playCard(compChoice, true);
+                break;
+            case "lose":
+                player.playCard(num, true);
+                computer.playCard(compChoice, false);
+                break;
+            case "draw":
+                player.playCard(num, false);
+                computer.playCard(compChoice, false);
+                break;
+        }
+        // Each player draws another card
+        player.drawCard();
+        computer.drawCard();
+        console.log(player);
+        console.log(computer);
+        // Update the html
+        updateCards();
     })
-});
 
-$("#setup").on("click", function(){
-    setUpPlayers();
-    console.log("Players setup");
-    console.log(player);
-    console.log(computer);
-})
-
-$("#battle").on("click", function(){
-    updateCards();
-})
-
-$(".playercard").on("click", function(){
-    var num = ($(this).attr("data"));
-    // Computer pick a random card
-    var compChoice = Math.floor(Math.random()*(computer.hand.length));
-    var compCard = computer.hand[compChoice];
-    // Outcome is decided by battle function
-    var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number, 
-                        parseInt(compCard.color.charAt(0)), compCard.number);
-    console.log("Player played: " + player.hand[num].color + " " + player.hand[num].number);
-    console.log("Computer played: " + compCard.color + " " + compCard.number);
-    console.log(outcome);
-    // Depending on outcome, call proper playCard functions on each player
-    switch (outcome) {
-        case "win":
-            player.playCard(num, false);
-            computer.playCard(compChoice, true);
-            break;
-        case "lose":
-            player.playCard(num, true);
-            computer.playCard(compChoice, false);
-            break;
-        case "draw":
-            player.playCard(num, false);
-            computer.playCard(compChoice, false);
-            break;
+    function battle(col_one, num_one, col_two, num_two){
+        switch(Math.abs(col_one - col_two)){
+            // Trump
+            case 1:
+            case 7:
+                if (col_one === 0 && col_two === 7) {
+                    return "win";
+                }
+                else if (col_one > col_two) {
+                    return "win";
+                }
+                else if (col_one < col_two) {
+                    return "lose";
+                }
+                break;
+            // Smaller number wins
+            case 2:
+            case 6:
+                if (num_one < num_two) {
+                    return "win";
+                }
+                else if (num_one > num_two) {
+                    return "lose";
+                }
+                else {
+                    return "draw";
+                }
+            // Bigger number wins
+            case 3:
+            case 5:
+                if (num_one > num_two) {
+                    return "win";
+                }
+                else if (num_one < num_two) {
+                    return "lose";
+                }
+                else {
+                    return "draw";
+                }
+                break;
+            // Closest to 7 wins
+            case 0:
+                var distToSeven_one = Math.abs(6 - num_one);
+                var distToSeven_two = Math.abs(6 - num_two);
+                if (distToSeven_one === distToSeven_two) {
+                    return "draw";
+                }
+                else if (distToSeven_one < distToSeven_two) {
+                    return "win";
+                }
+                else if (distToSeven_one > distToSeven_two) {
+                    return "lose";
+                }
+            // Furthest from 7 wins
+            case 4:
+                var distToSeven_one = Math.abs(6 - num_one);
+                var distToSeven_two = Math.abs(6 - num_two);
+                if (distToSeven_one === distToSeven_two) {
+                    return "draw";
+                }
+                else if (distToSeven_one > distToSeven_two) {
+                    return "win";
+                }
+                else if (distToSeven_one < distToSeven_two) {
+                    return "lose";
+                }
+        }
     }
-    // Each player draws another card
-    player.drawCard();
-    computer.drawCard();
-    console.log(player);
-    console.log(computer);
-    // Update the html
-    updateCards();
-})
 
-function battle(col_one, num_one, col_two, num_two){
-    switch(Math.abs(col_one - col_two)){
-        // Trump
-        case 1:
-        case 7:
-            if (col_one === 0 && col_two === 7) {
-                return "win";
-            }
-            else if (col_one > col_two) {
-                return "win";
-            }
-            else if (col_one < col_two) {
-                return "lose";
-            }
-            break;
-        // Smaller number wins
-        case 2:
-        case 6:
-            if (num_one < num_two) {
-                return "win";
-            }
-            else if (num_one > num_two) {
-                return "lose";
+    function updateCards() {
+        for (var i=0; i<3; i++) {
+            if (player.cardCount > i){
+                $("#playercard" + i).html("<p>" + player.hand[i].color + "</p><p>" + 
+                    player.hand[i].number + "</p><p>" + player.hand[i].image);
             }
             else {
-                return "draw";
+                $("#playercard" + i).html("No card left");
             }
-        // Bigger number wins
-        case 3:
-        case 5:
-            if (num_one > num_two) {
-                return "win";
-            }
-            else if (num_one < num_two) {
-                return "lose";
+            if (computer.cardCount > i){
+                $("#computercard" + i).html("<p>" + computer.hand[i].color + "</p><p>" + 
+                    computer.hand[i].number + "</p><p>" + computer.hand[i].image);
             }
             else {
-                return "draw";
+                $("#computercard" + i).html("No card left");
             }
-            break;
-        // Closest to 7 wins
-        case 0:
-            var distToSeven_one = Math.abs(6 - num_one);
-            var distToSeven_two = Math.abs(6 - num_two);
-            if (distToSeven_one === distToSeven_two) {
-                return "draw";
-            }
-            else if (distToSeven_one < distToSeven_two) {
-                return "win";
-            }
-            else if (distToSeven_one > distToSeven_two) {
-                return "lose";
-            }
-        // Furthest from 7 wins
-        case 4:
-            var distToSeven_one = Math.abs(6 - num_one);
-            var distToSeven_two = Math.abs(6 - num_two);
-            if (distToSeven_one === distToSeven_two) {
-                return "draw";
-            }
-            else if (distToSeven_one > distToSeven_two) {
-                return "win";
-            }
-            else if (distToSeven_one < distToSeven_two) {
-                return "lose";
-            }
-    }
-}
-
-function updateCards() {
-    for (var i=0; i<3; i++) {
-        if (player.cardCount > i){
-            $("#playercard" + i).html("<p>" + player.hand[i].color + "</p><p>" + 
-                player.hand[i].number + "</p><p>" + player.hand[i].image);
-        }
-        else {
-            $("#playercard" + i).html("No card left");
-        }
-        if (computer.cardCount > i){
-            $("#computercard" + i).html("<p>" + computer.hand[i].color + "</p><p>" + 
-                computer.hand[i].number + "</p><p>" + computer.hand[i].image);
-        }
-        else {
-            $("#computercard" + i).html("No card left");
         }
     }
-}
 
-function setUpPlayers(){
-    // Create an array of 20 unique random numbers between 0-104
-    var cardNumbers = [];
-    var deck1 = [];
-    var deck2 = [];
-    while(cardNumbers.length < 20){
-        var randomnumber = Math.floor(Math.random()*104)
-        if(cardNumbers.indexOf(randomnumber) > -1) continue;
-        cardNumbers[cardNumbers.length] = randomnumber;
-    }
-    // Use that array to pick cards from the database
-    for (var i=0; i<cardNumbers.length; i++) {
-        deck1.push(allCardsArray[cardNumbers[i]]);
-    }
-    // Do it again for another player
-    while(cardNumbers.length < 20){
-        var randomnumber = Math.floor(Math.random()*104)
-        if(cardNumbers.indexOf(randomnumber) > -1) continue;
-        cardNumbers[cardNumbers.length] = randomnumber;
-    }
-    for (var i=0; i<cardNumbers.length; i++) {
-        deck2.push(allCardsArray[cardNumbers[i]]);
-    }
-    // Create two players
-    player = new Player("Player", deck1);
-    computer = new Player("Computer", deck2);
+    function setUpPlayers(){
+        // Create an array of 20 unique random numbers between 0-104
+        var cardNumbers = [];
+        var deck1 = [];
+        var deck2 = [];
+        while(cardNumbers.length < 20){
+            var randomnumber = Math.floor(Math.random()*104)
+            if(cardNumbers.indexOf(randomnumber) > -1) continue;
+            cardNumbers[cardNumbers.length] = randomnumber;
+        }
+        // Use that array to pick cards from the database
+        for (var i=0; i<cardNumbers.length; i++) {
+            deck1.push(allCardsArray[cardNumbers[i]]);
+        }
+        // Do it again for another player
+        while(cardNumbers.length < 20){
+            var randomnumber = Math.floor(Math.random()*104)
+            if(cardNumbers.indexOf(randomnumber) > -1) continue;
+            cardNumbers[cardNumbers.length] = randomnumber;
+        }
+        for (var i=0; i<cardNumbers.length; i++) {
+            deck2.push(allCardsArray[cardNumbers[i]]);
+        }
+        // Create two players
+        player = new Player("Player", deck1);
+        computer = new Player("Computer", deck2);
 
-    player.shuffle();
-    computer.shuffle();
+        player.shuffle();
+        computer.shuffle();
 
-    player.drawCard();
-    player.drawCard();
-    player.drawCard();
-    computer.drawCard();
-    computer.drawCard();
-    computer.drawCard();
-}
+        player.drawCard();
+        player.drawCard();
+        player.drawCard();
+        computer.drawCard();
+        computer.drawCard();
+        computer.drawCard();
+    }
 
-$(".card").on("click", function() {
-    console.log($(this).attr("datacol"));
-    console.log($(this).attr("datanum"));
+    $(".card").on("click", function() {
+        console.log($(this).attr("datacol"));
+        console.log($(this).attr("datanum"));
+
+        var card = {
+            color: $(this).attr("datacol"),
+            number: $(this).attr("datanum"),
+            image: $(this).attr("dataimg"),
+            owner: firebase.auth().currentUser.displayName
+        }
+        $.post("/addcard", card, function(data){
+            console.log(data);
+        })
+
+    });
+
+    firebase.auth().onAuthStateChanged(function(user) {
+
+        // if (user) {
+
+        //     if (!currentUser) { currentUser = user.displayName; }
+
+        // } else {
+        //     if(window.location.pathname != "/") {
+        //         window.location.assign("/");
+        //     }
+        // }
+        $.get("/deckbuilder", { username: firebase.auth().currentUser.displayName }, function(data){
+            
+        })
+    });
 
 });
