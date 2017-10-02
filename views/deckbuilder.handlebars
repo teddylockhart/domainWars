@@ -1,0 +1,11 @@
+<a href="/arena"><button id="start">Go to Arena</button></a>
+
+<div class="container">
+    {{#each cards}}
+    <div class="md-col-1 card" datacol = {{this.color}} datanum = {{this.number}}>
+        {{this.color}}
+        {{this.number}}
+        {{this.image}}
+    </div>
+    {{/each}}
+</div>
