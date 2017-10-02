@@ -1,0 +1,95 @@
+/* kole */
+#playercard0,
+#playercard1,
+#playercard2,
+#computercard0,
+#computercard1,
+#computercard2 {
+    /* width:150px;
+    height:210px; */
+    background-color:red;
+    /* padding:5px; */
+    border: solid 1px white;
+}
+
+#rulesBox {
+    background-color: green;
+    height:100vh;
+}
+
+nav {
+    background-color:black;
+    color:white;
+}
+
+.navHov:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+#avatarImg {
+   width:100%;
+}
+
+.avatarBox {
+   position:relative;
+}
+
+.clearfix::after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+body {
+    height:100%;
+    overflow: hidden;
+}
+
+.row {
+    margin:0;
+}
+
+/* JASMINE */
+input#name.validate,
+input#password.validate {
+    color: #000;
+}
+
+div.container {
+    display: block;
+    margin: 0 auto;
+}
+
+h5 {
+    text-align: center;
+}
+
+/* Div containing the submit button and login link */
+.center-btn {
+    text-align: center;
+}
+
+.btn waves-effect waves-light {
+    margin-right: 10px;
+}
+
+a {
+    margin-left: 10px;
+}
+
+nav .nav-wrapper {
+    background-color:black;
+    color:white;
+}
+
+.navHov:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+div.container {
+    margin-top: 50px;
+}
