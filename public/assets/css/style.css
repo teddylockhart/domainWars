@@ -1,0 +1,40 @@
+input#name.validate,
+input#password.validate {
+    color: #000;
+}
+
+div.container {
+    display: block;
+    margin: 0 auto;
+}
+
+h5 {
+    text-align: center;
+}
+
+/* Div containing the submit button and login link */
+.center-btn {
+    text-align: center;
+}
+
+.btn waves-effect waves-light {
+    margin-right: 10px;
+}
+
+a {
+    margin-left: 10px;
+}
+
+nav .nav-wrapper {
+    background-color:black;
+    color:white;
+}
+
+.navHov:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+div.container {
+    margin-top: 50px;
+}
