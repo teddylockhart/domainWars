@@ -2,6 +2,8 @@ var db = require("../models");
 
 module.exports = function(app) {
 
+    var userIn = false;
+
     app.get("/", function(req, res){
         
         res.render("index");
@@ -18,22 +20,82 @@ module.exports = function(app) {
         })   
     })
 
+    app.get("/profile", function(req, res){
+
+        res.render("profile");
+    });
+
     app.get("/arena", function(req, res){
 
         res.render("arena");
     });
 
     app.get("/deckbuilder", function(req, res){
-        
+        console.log("Query: " + req.query.username);
         var cardArray = [];
+        var playerCards = []
         db.cards.findAll().then(cards => {
             for(var i=0; i<cards.length; i++){
                 cardArray.push(cards[i].dataValues);
             }
 
-            res.render("deckbuilder", {cards: cardArray});
+            db.Decks.findAll({ where: {owner: req.query.username}}).then(pc =>{
+                for(var i=0; i<pc.length; i++){
+                    playerCards.push(pc[i].dataValues);
+                }
+                res.render("deckbuilder", {cards: cardArray, pc: playerCards});
+            })
         })
-        
+    });
+
+    app.post("/signup/:user", function(req, res){
+
+        db.Users.findOne({ where: {username: req.params.user} }).then(user => {
+            console.log(user);
+            if (user) {
+                res.send(false);
+            }
+            else {
+                db.Users.create({
+                    username: req.body.username,
+                    password: req.body.password
+                })
+                res.send(true);
+            }
+        }) 
+    });
+
+    app.post("/signin/:user", function(req, res){
+
+        db.Users.findOne({ where: {username: req.params.user} }).then(user => {
+            // User doesn't exists
+            if (!user) {
+                var result = {
+                    success: false,
+                    message: "User not found"
+                }
+                res.json(result);
+            }
+            // User does exist
+            else {
+                // Check passwords
+                if (user.dataValues.password === req.body.password) {
+                    var result = {
+                        success: true,
+                        message: ""
+                    }
+                    userIn = true;
+                    res.json(result);
+                }
+                else {
+                    var result = {
+                        success: false,
+                        message: "Password is incorrect"
+                    }
+                    res.json(result);
+                }
+            }
+        });
     });
 
     app.post("/deckbuilder", function(req, res){
@@ -41,6 +103,36 @@ module.exports = function(app) {
         createAllCards();
         res.end();
     });
+
+    app.post("/addcard", function(req, res){
+        db.Decks.count({ where: {owner: req.body.owner}}).then(c => {
+            if (c <= 20){
+                db.Decks.findAll({ where: {
+                                    color: req.body.color,
+                                    number: req.body.number,
+                                    owner: req.body.owner
+                                    }
+                }).then(cards =>{
+                    if (!cards[0]) {
+                        db.Decks.create({
+                            color: req.body.color,
+                            number: req.body.number,
+                            image: req.body.image,
+                            owner: req.body.owner
+                        });
+                        res.redirect("/deckbuilder");
+                    }
+                    else {
+                        res.json({success: false, message: "You already have that card"});
+                    }
+                });
+            }
+            else {
+                res.json({success: false, message: "You have 20 cards already"});
+            }
+        })
+
+    })
 };
 // Create cards numbered 1-13 for each color in the colors array
 function createAllCards() { 
