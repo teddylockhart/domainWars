@@ -1,5 +1,68 @@
 {{!-- WELCOME PAGE --}}
 
+{{!-- <<<<<<< PEARCE START --}}
+<a href="/deckbuilder"><button id="start">Go to Deckbuilder</button></a>
+
+{{!-- DIV #1 --}}
+<div id="signIn" class="row">
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="signInEmail" type="email" class="validate">
+                <label for="signInEmail">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="signInPass" type="password" class="validate">
+                <label for="signInPass">Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <a id="signInBtn" class="waves-effect waves-light btn">Sign In</a>
+            <a id="switchToSignUp">Sign Up?</a>
+            <span class="errMsg"></span>
+        </div>
+    </form>
+</div>
+
+
+{{!-- DIV #2 --}}
+<div id="signUp" class="row">
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="signUpEmail" type="email" class="validate">
+                <label for="signUpEmail">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="signUpName" type="text" class="validate">
+                <label for="signUpName">Username</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="signUpPass" type="password" class="validate">
+                <label for="signUpPass">Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="passwordConfirm" type="password" class="validate">
+                <label for="passwordConfirm">Confirm Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <a id="signUpBtn" class="waves-effect waves-light btn">Sign Up</a>
+            <a id="switchToSignIn">Sign In?</a>
+            <span class="errMsg"></span>
+        </div>
+        <a id="logOutBtn" class="waves-effect waves-light btn">Log Out</a>
+    </form>
+</div>
+{{!-- ======= PEARCE END // DEV START --}}
 {{!-- Pearce's original "builder" button --}} {{!-- <a href="/deckbuilder"><button id="start">Go to Deckbuilder</button></a>--}}
 
 <!-- Buttons in nav bars -->
@@ -100,3 +163,4 @@
         </span>
     </div>
 </div>
+{{!-- >>>>>>> dev end --}}
