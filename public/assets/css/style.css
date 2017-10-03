@@ -54,7 +54,6 @@ body {
     background-size: 100% 100%;
     background-attachment: fixed;
     background-position: center; 
-
 }
 
 .noMarg {
@@ -116,6 +115,10 @@ nav .nav-wrapper {
 
 div.container {
     margin-top: 50px;
+}
+
+.deckCard {
+    width: 100%;
 }
 
 @media screen and (max-width: 695px) {
