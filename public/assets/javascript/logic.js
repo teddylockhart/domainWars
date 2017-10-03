@@ -16,6 +16,7 @@ $(document).ready(function() {
     var waiting;
 
     $("#signIn").hide();
+    $("#roundUp").hide();
 
     function Player(name, deck) {
         this.name = name;
@@ -139,6 +140,7 @@ $(document).ready(function() {
             $(".errorMsg").html(errorMessage);
             $("#signInEmail, #signInPass").val("");
         });
+
 
     });
 

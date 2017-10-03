@@ -10,6 +10,7 @@
     background-color:red;
     /* padding:5px; */
     border: solid 1px white;
+    min-height:186px;
 }
 
 #rulesBox {
@@ -17,9 +18,10 @@
     height:100vh;
 }
 
-nav {
+.nav-wrapper {
     background-color:black;
     color:white;
+    margin-bottom: 4px;
 }
 
 .navHov:hover {
@@ -45,13 +47,44 @@ nav {
 
 body {
     height:100%;
+    /* NEED FOR KOLE ARENA */
+    /* overflow: hidden; */
+    background-image: url("../images/darkgrey.jpg");    
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center; 
 }
 
-.row {
+.noMarg {
     margin:0;
+    padding:0;
+}
+
+#battleBoxPlayer,
+#battleBoxComp {
+    height:186px;
+}
+
+.avatarButton {
+    width:48px;
+    text-align: center;
+    padding:2px;
+    font-size:12px;
+    margin:5px;
+
+}
+.deckBox {
+    background-color: rgba(255, 255, 0, 0.35);
+    border:solid 1px white;
+    height:93px;
 }
 
 /* JASMINE */
+.card-panel {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
 input#name.validate,
 input#password.validate {
     color: #000;
@@ -60,10 +93,6 @@ input#password.validate {
 div.container {
     display: block;
     margin: 0 auto;
-}
-
-h5 {
-    text-align: center;
 }
 
 /* Div containing the submit button and login link */
@@ -84,15 +113,35 @@ nav .nav-wrapper {
     color:white;
 }
 
-.navHov:hover {
-    background-color: lightgray;
-    color: black;
-}
-
 div.container {
     margin-top: 50px;
 }
 
 .deckCard {
+    width: 100%;
+}
+
+@media screen and (max-width: 695px) {
+    nav .brand-logo.center {
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 595px) {
+    nav .brand-logo.center {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    nav .brand-logo.center {
+        font-size: 16px;
+    }
+}
+
+/* Teddy: Profile */
+
+#profile-avatar {
+    display: inline-block;
     width: 100%;
 }
