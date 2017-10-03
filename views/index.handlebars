@@ -1,0 +1,80 @@
+{{!-- WELCOME PAGE --}}
+
+
+<!-- Navbar "welcome" -->
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <a class="brand-logo center">Welcome to Domain Wars</a>
+        </div>
+    </nav>
+</div>
+
+{{!-- DIV #1 --}}
+<div class="container" id="signIn">
+    <div class="card-panel">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="signInEmail" type="email" class="validate">
+                        <label class="active" for="signInEmail">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="signInPass" type="password" class="validate">
+                        <label class="active" for="signInPass">Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <a id="signInBtn" class="waves-effect waves-light btn">Sign In</a>
+                    <a id="switchToSignUp">Sign Up?</a>
+                    <span class="errMsg"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{!-- DIV #2 --}}
+<div class="container" id="signUp">
+    <div class="card-panel">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="signUpEmail" type="email" class="validate">
+                        <label class="active" for="signUpEmail">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="signUpName" type="text" class="validate">
+                        <label class="active" for="signUpName">Username</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="signUpPass" type="password" class="validate">
+                        <label class="active" for="signUpPass">Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="passwordConfirm" type="password" class="validate">
+                        <label class="active" for="passwordConfirm">Confirm Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <a id="signUpBtn" class="waves-effect waves-light btn">Sign Up</a>
+                    <a id="switchToSignIn">Sign In?</a>
+                    <span class="errMsg"></span>
+                </div>
+                <div class="row">
+                    <a id="logOutBtn" class="waves-effect waves-light btn">Log Out</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
