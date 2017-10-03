@@ -1,20 +1,43 @@
-<a href="/arena"><button id="start">Go to Arena</button></a>
-
-<div class="container">
-    {{#each pc}}
-    <div>
-        {{this.color}}
-        {{this.number}}
-        {{this.image}}
-    </div>
-    {{/each}}
+<button id="goToArena">Go to Arena</button>
+<span id="deckMessage">Message here</span>
+<div class="row">
+    <div class="col s1 m1 l1"></div>
+    <div id="deckCard0" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard1" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard2" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard3" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard4" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard5" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard6" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard7" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard8" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard9" class="col s1 m1 l1 deckCard"></div>
+    <div class="col s1 m1 l1"></div>
+</div>
+<div class="row">
+    <div class="col s1 m1 l1"></div>
+    <div id="deckCard10" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard11" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard12" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard13" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard14" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard15" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard16" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard17" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard18" class="col s1 m1 l1 deckCard"></div>
+    <div id="deckCard19" class="col s1 m1 l1 deckCard"></div>
+    <div class="col s1 m1 l1"></div>
+</div>
     {{#each cards}}
-    <div class="col-md-1 card" datacol = {{this.color}} datanum = {{this.number}} dataimg = {{this.image}}>
+    <div class="col s1 m1 l1 deck" datacol = {{this.color}} datanum = {{this.number}} dataimg = {{this.image}}>
         {{this.color}}
         {{this.number}}
         {{this.image}}
     </div>
     {{/each}}
     <br><br><br>
-    
+</div>
+
+<div class="deck" datacol = {{cards[0].color}} datanum = {{cards[0].number}} dataimg = {{cards[0].image}}>
+    <img id="deckChoice" src="https://www.123freevectors.com/wp-content/uploads/new/icon/075-smiley-face-vector-art-free-download-l.png">
 </div>

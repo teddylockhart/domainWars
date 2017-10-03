@@ -45,7 +45,6 @@ nav {
 
 body {
     height:100%;
-    overflow: hidden;
 }
 
 .row {
@@ -92,4 +91,8 @@ nav .nav-wrapper {
 
 div.container {
     margin-top: 50px;
+}
+
+.deckCard {
+    width: 100%;
 }
