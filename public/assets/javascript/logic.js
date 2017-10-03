@@ -11,10 +11,12 @@ firebase.initializeApp(config);
 
 var allCardsArray = [];
 var player, computer, currentUser;
+var waiting = false;
 
 $(document).ready(function() {
 
     $("#signIn").hide();
+    $("#roundUp").hide();
 
     function Player(name, deck) {
         this.name = name;
@@ -186,39 +188,56 @@ $(document).ready(function() {
         $(".errMsg").html("");
     });
 
-    $(".playercard").on("click", function(){
-        var num = ($(this).attr("data"));
-        // Computer pick a random card
-        var compChoice = Math.floor(Math.random()*(computer.hand.length));
-        var compCard = computer.hand[compChoice];
-        // Outcome is decided by battle function
-        var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number, 
-                            parseInt(compCard.color.charAt(0)), compCard.number);
-        console.log("Player played: " + player.hand[num].color + " " + player.hand[num].number);
-        console.log("Computer played: " + compCard.color + " " + compCard.number);
-        console.log(outcome);
-        // Depending on outcome, call proper playCard functions on each player
-        switch (outcome) {
-            case "win":
-                player.playCard(num, false);
-                computer.playCard(compChoice, true);
-                break;
-            case "lose":
-                player.playCard(num, true);
-                computer.playCard(compChoice, false);
-                break;
-            case "draw":
-                player.playCard(num, false);
-                computer.playCard(compChoice, false);
-                break;
-        }
-        // Each player draws another card
-        player.drawCard();
-        computer.drawCard();
-        console.log(player);
-        console.log(computer);
-        // Update the html
+    $("#roundUp").on("click", function() {
+        $("#roundUp").hide();
+        $("#battleBoxPlayer").html("");
+        $("#battleBoxComp").html("");
+        $("#playerDiscard").html(player.last.color + player.last.number);
+        $("#compDiscard").html(computer.last.color + computer.last.number);
         updateCards();
+        
+        waiting = false;
+    });
+
+    $(".playercard").on("click", function(){
+        if(!waiting) {
+            var num = ($(this).attr("data"));
+            // Computer pick a random card
+            var compChoice = Math.floor(Math.random()*(computer.hand.length));
+            var compCard = computer.hand[compChoice];
+            // Outcome is decided by battle function
+            var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number, 
+                                parseInt(compCard.color.charAt(0)), compCard.number);
+
+            $("#battleBoxPlayer").html(player.hand[num].color + player.hand[num].number);
+            $("#battleBoxComp").html(compCard.color + compCard.number);
+            $("#roundUp").show();
+
+            // Depending on outcome, call proper playCard functions on each player
+            switch (outcome) {
+                case "win":
+                    player.playCard(num, false);
+                    computer.playCard(compChoice, true);
+                    break;
+                case "lose":
+                    player.playCard(num, true);
+                    computer.playCard(compChoice, false);
+                    break;
+                case "draw":
+                    player.playCard(num, false);
+                    computer.playCard(compChoice, false);
+                    break;
+            }
+            
+           
+            // Each player draws another card
+            player.drawCard();
+            computer.drawCard();
+            console.log(player);
+            console.log(computer);
+            
+            waiting = true;
+        }  
     })
 
     function battle(col_one, num_one, col_two, num_two){
