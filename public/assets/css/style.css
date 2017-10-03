@@ -46,6 +46,11 @@ nav {
 body {
     height:100%;
     overflow: hidden;
+    background-image: url("../images/darkgrey.jpg");    
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: center; 
 }
 
 .row {
@@ -53,6 +58,11 @@ body {
 }
 
 /* JASMINE */
+.card-panel {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+
 input#name.validate,
 input#password.validate {
     color: #000;
@@ -61,10 +71,6 @@ input#password.validate {
 div.container {
     display: block;
     margin: 0 auto;
-}
-
-h5 {
-    text-align: center;
 }
 
 /* Div containing the submit button and login link */
@@ -85,11 +91,24 @@ nav .nav-wrapper {
     color:white;
 }
 
-.navHov:hover {
-    background-color: lightgray;
-    color: black;
-}
-
 div.container {
     margin-top: 50px;
+}
+
+@media screen and (max-width: 695px) {
+    nav .brand-logo.center {
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 595px) {
+    nav .brand-logo.center {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    nav .brand-logo.center {
+        font-size: 16px;
+    }
 }
