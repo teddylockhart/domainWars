@@ -18,9 +18,6 @@ $(document).ready(function() {
     $("#signIn").hide();
     $("#roundUp").hide();
 
-    // Collapsible accordion on the DECKBUILDER page
-    $('.collapsible popout').collapsible();
-
     function Player(name, deck) {
         this.name = name;
         this.deck = deck;
@@ -199,10 +196,6 @@ $(document).ready(function() {
             $("#signUpEmail, #signUpName, #signUpPass, #passwordConfirm").val("");
         }
     });
-
-    $(".deck").on("click", function(){
-        console.log("click");
-    })
 
     $("#logOutBtn").on("click", function(){
         firebase.auth().signOut();
