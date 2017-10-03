@@ -45,7 +45,7 @@ nav {
 
 body {
     height:100%;
-    overflow: hidden;
+    /* overflow: hidden; */
     background-image: url("../images/darkgrey.jpg");    
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -53,7 +53,7 @@ body {
     background-position: center; 
 }
 
-.row {
+.noMarg {
     margin:0;
 }
 
@@ -111,4 +111,11 @@ div.container {
     nav .brand-logo.center {
         font-size: 16px;
     }
+}
+
+/* Teddy: Profile */
+
+#profile-avatar {
+    display: inline-block;
+    width: 100%;
 }
