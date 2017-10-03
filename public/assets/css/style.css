@@ -47,7 +47,10 @@
 
 body {
     height:100%;
+<<<<<<< Updated upstream
     /* NEED FOR KOLE ARENA */
+=======
+>>>>>>> Stashed changes
     /* overflow: hidden; */
     background-image: url("../images/darkgrey.jpg");    
     background-repeat: no-repeat;
@@ -139,9 +142,21 @@ div.container {
     }
 }
 
+<<<<<<< Updated upstream
 /* Teddy: Profile */
 
 #profile-avatar {
     display: inline-block;
     width: 100%;
 }
+=======
+/* DECKBUILDER STYLING */
+#deckbuilder .collapsible-body {
+    background-color: black;
+    color: white;
+}
+
+#deckbuilder #deckChoice {
+    width: 50px;
+}
+>>>>>>> Stashed changes

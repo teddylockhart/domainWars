@@ -2,6 +2,7 @@
     "development": {
       "username": "root",
       "password": "teddykuma",
+      "password": "Rootuser01!",
       "database": "card_game",
       "host": "127.0.0.1",
       "dialect": "mysql"
