@@ -102,7 +102,7 @@ $(document).ready(function() {
     $("#signInBtn").on("click", function(){
         event.preventDefault();
 
-        currentUser = $("#signInName").val().trim();
+        currentUser = $("#signInEmail").val().trim();
         var password = $("#signInPass").val().trim();
 
         var user = {
@@ -117,7 +117,7 @@ $(document).ready(function() {
             }
             else {
                 $(".errMsg").html(data.message);
-                $("#signInName, #signInPass").val("");
+                $("#signInEmail, #signInPass").val("");
             }
         })
 
