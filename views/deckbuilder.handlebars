@@ -1,4 +1,4 @@
-{{!--  Navbar postlogin --}}
+{{!-- Navbar postlogin --}}
 <nav>
     <div class="nav-wrapper">
         <div class="row center-align">
@@ -18,368 +18,127 @@
     </div>
 </nav>
 
-<div class="container" id=deckbuilder>
+<div class="container" id="deckbuilder">
+    <div id="deckcontainer">
+        <div class="center-align"id="deckMessage">Your Deck</div>
+        <div class="row">
+            <div class="col s1 m1 l1"></div>
+            <div id="deckCard0" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard1" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard2" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard3" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard4" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard5" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard6" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard7" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard8" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard9" class="col s1 m1 l1 deckCard"></div>
+            <div class="col s1 m1 l1"></div>
+        </div>
+        <div class="row">
+            <div class="col s1 m1 l1"></div>
+            <div id="deckCard10" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard11" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard12" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard13" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard14" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard15" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard16" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard17" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard18" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard19" class="col s1 m1 l1 deckCard"></div>
+            <div class="col s1 m1 l1"></div>
+        </div>
+    </div>
 
     <ul class="collapsible popout" data-collapsible="accordion">
         <li>
-            <div class="collapsible-header">
-                <i class="material-icons">filter_drama</i>Nintendo</div>
+            <div class="collapsible-header" id="coll1">
+                <img src="/assets/images/favicons/mariofavicon.ico" id="mariofav"><b>MARIO</b></div>
             <div class="collapsible-body">
-                <div class="deck" datacol={ {cards[0].color}} datanum={ {cards[0].number}} dataimg={ {cards[0].image}}>
-                    <img id="deckChoice" src={ {cards[0].image}}>
+                {{#each group1}}
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                    <img id="deckChoice" src={{this.image}}>
                 </div>
-                <div class="deck" datacol={ {cards[1].color}} datanum={ {cards[1].number}} dataimg={ {cards[1].image}}>
-                    <img id="deckChoice" src={ {cards[1].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[2].color}} datanum={ {cards[2].number}} dataimg={ {cards[2].image}}>
-                    <img id="deckChoice" src={ {cards[2].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[3].color}} datanum={ {cards[3].number}} dataimg={ {cards[3].image}}>
-                    <img id="deckChoice" src={ {cards[3].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[4].color}} datanum={ {cards[4].number}} dataimg={ {cards[4].image}}>
-                    <img id="deckChoice" src={ {cards[4].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[5].color}} datanum={ {cards[5].number}} dataimg={ {cards[5].image}}>
-                    <img id="deckChoice" src={ {cards[5].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[6].color}} datanum={ {cards[6].number}} dataimg={ {cards[6].image}}>
-                    <img id="deckChoice" src={ {cards[6].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[7].color}} datanum={ {cards[7].number}} dataimg={ {cards[7].image}}>
-                    <img id="deckChoice" src={ {cards[7].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[8].color}} datanum={ {cards[8].number}} dataimg={ {cards[8].image}}>
-                    <img id="deckChoice" src={ {cards[8].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[9].color}} datanum={ {cards[9].number}} dataimg={ {cards[9].image}}>
-                    <img id="deckChoice" src={ {cards[9].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[10].color}} datanum={ {cards[10].number}} dataimg={ {cards[10].image}}>
-                    <img id="deckChoice" src={ {cards[10].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[11].color}} datanum={ {cards[11].number}} dataimg={ {cards[11].image}}>
-                    <img id="deckChoice" src={ {cards[11].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[12].color}} datanum={ {cards[12].number}} dataimg={ {cards[12].image}}>
-                    <img id="deckChoice" src={ {cards[12].image}}>
-                </div>
+                {{/each}}
             </div>
         </li>
         <li>
-            <div class="collapsible-header">
-                <i class="material-icons">place</i>Disney</div>
+            <div class="collapsible-header" id="coll2">
+                <img src="/assets/images/favicons/disneyfavicon.png" id="disneyfav"><b>DISNEY</b></div>
             <div class="collapsible-body">
-                <div class="deck" datacol={ {cards[13].color}} datanum={ {cards[13].number}} dataimg={ {cards[13].image}}>
-                    <img id="deckChoice" src={ {cards[13].image}}>
+                {{#each group2}}
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                    <img id="deckChoice" src={{this.image}}>
                 </div>
-                <div class="deck" datacol={ {cards[14].color}} datanum={ {cards[14].number}} dataimg={ {cards[14].image}}>
-                    <img id="deckChoice" src={ {cards[14].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[15].color}} datanum={ {cards[15].number}} dataimg={ {cards[15].image}}>
-                    <img id="deckChoice" src={ {cards[15].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[16].color}} datanum={ {cards[16].number}} dataimg={ {cards[16].image}}>
-                    <img id="deckChoice" src={ {cards[16].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[17].color}} datanum={ {cards[17].number}} dataimg={ {cards[17].image}}>
-                    <img id="deckChoice" src={ {cards[17].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[18].color}} datanum={ {cards[18].number}} dataimg={ {cards[18].image}}>
-                    <img id="deckChoice" src={ {cards[18].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[19].color}} datanum={ {cards[19].number}} dataimg={ {cards[19].image}}>
-                    <img id="deckChoice" src={ {cards[19].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[20].color}} datanum={ {cards[20].number}} dataimg={ {cards[20].image}}>
-                    <img id="deckChoice" src={ {cards[20].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[21].color}} datanum={ {cards[21].number}} dataimg={ {cards[21].image}}>
-                    <img id="deckChoice" src={ {cards[21].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[22].color}} datanum={ {cards[22].number}} dataimg={ {cards[22].image}}>
-                    <img id="deckChoice" src={ {cards[22].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[23].color}} datanum={ {cards[23].number}} dataimg={ {cards[23].image}}>
-                    <img id="deckChoice" src={ {cards[23].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[24].color}} datanum={ {cards[24].number}} dataimg={ {cards[24].image}}>
-                    <img id="deckChoice" src={ {cards[24].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[25].color}} datanum={ {cards[25].number}} dataimg={ {cards[25].image}}>
-                    <img id="deckChoice" src={ {cards[25].image}}>
-                </div>
+                {{/each}}
             </div>
 
         </li>
         <li>
-            <div class="collapsible-header">
-                <i class="material-icons">whatshot</i>Pokemon</div>
+            <div class="collapsible-header" id="coll3">
+                <img src="/assets/images/favicons/pokemonfavicon.png" id="pokefav"><b>POKEMON</b></div>
             <div class="collapsible-body">
-                <div class="deck" datacol={ {cards[26].color}} datanum={ {cards[26].number}} dataimg={ {cards[26].image}}>
-                    <img id="deckChoice" src={ {cards[26].image}}>
+                {{#each group3}}
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                    <img id="deckChoice" src={{this.image}}>
                 </div>
-                <div class="deck" datacol={ {cards[27].color}} datanum={ {cards[27].number}} dataimg={ {cards[27].image}}>
-                    <img id="deckChoice" src={ {cards[27].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[28].color}} datanum={ {cards[28].number}} dataimg={ {cards[28].image}}>
-                    <img id="deckChoice" src={ {cards[28].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[29].color}} datanum={ {cards[29].number}} dataimg={ {cards[29].image}}>
-                    <img id="deckChoice" src={ {cards[29].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[30].color}} datanum={ {cards[30].number}} dataimg={ {cards[30].image}}>
-                    <img id="deckChoice" src={ {cards[30].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[31].color}} datanum={ {cards[31].number}} dataimg={ {cards[31].image}}>
-                    <img id="deckChoice" src={ {cards[31].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[32].color}} datanum={ {cards[32].number}} dataimg={ {cards[32].image}}>
-                    <img id="deckChoice" src={ {cards[32].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[33].color}} datanum={ {cards[33].number}} dataimg={ {cards[33].image}}>
-                    <img id="deckChoice" src={ {cards[33].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[34].color}} datanum={ {cards[34].number}} dataimg={ {cards[34].image}}>
-                    <img id="deckChoice" src={ {cards[34].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[35].color}} datanum={ {cards[35].number}} dataimg={ {cards[35].image}}>
-                    <img id="deckChoice" src={ {cards[35].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[36].color}} datanum={ {cards[36].number}} dataimg={ {cards[36].image}}>
-                    <img id="deckChoice" src={ {cards[36].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[37].color}} datanum={ {cards[37].number}} dataimg={ {cards[37].image}}>
-                    <img id="deckChoice" src={ {cards[37].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[38].color}} datanum={ {cards[38].number}} dataimg={ {cards[38].image}}>
-                    <img id="deckChoice" src={ {cards[38].image}}>
-                </div>
+                {{/each}}
             </div>
         </li>
         <li>
-            <div class="collapsible-header">
-                <i class="material-icons">filter_drama</i>Avatar Last Airbender</div>
+            <div class="collapsible-header" id="coll4">
+                <img src="/assets/images/favicons/la.png" id="avatarfav"><b>AVATAR LAST AIRBENDER</b></div>
             <div class="collapsible-body">
-                <div class="deck" datacol={ {cards[39].color}} datanum={ {cards[39].number}} dataimg={ {cards[39].image}}>
-                    <img id="deckChoice" src={ {cards[39].image}}>
+                {{#each group4}}
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                    <img id="deckChoice" src={{this.image}}>
                 </div>
-                <div class="deck" datacol={ {cards[40].color}} datanum={ {cards[40].number}} dataimg={ {cards[40].image}}>
-                    <img id="deckChoice" src={ {cards[40].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[41].color}} datanum={ {cards[41].number}} dataimg={ {cards[41].image}}>
-                    <img id="deckChoice" src={ {cards[41].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[42].color}} datanum={ {cards[42].number}} dataimg={ {cards[42].image}}>
-                    <img id="deckChoice" src={ {cards[42].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[43].color}} datanum={ {cards[43].number}} dataimg={ {cards[43].image}}>
-                    <img id="deckChoice" src={ {cards[43].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[44].color}} datanum={ {cards[44].number}} dataimg={ {cards[44].image}}>
-                    <img id="deckChoice" src={ {cards[44].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[45].color}} datanum={ {cards[45].number}} dataimg={ {cards[45].image}}>
-                    <img id="deckChoice" src={ {cards[45].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[46].color}} datanum={ {cards[46].number}} dataimg={ {cards[46].image}}>
-                    <img id="deckChoice" src={ {cards[46].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[47].color}} datanum={ {cards[47].number}} dataimg={ {cards[47].image}}>
-                    <img id="deckChoice" src={ {cards[47].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[48].color}} datanum={ {cards[48].number}} dataimg={ {cards[48].image}}>
-                    <img id="deckChoice" src={ {cards[48].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[49].color}} datanum={ {cards[49].number}} dataimg={ {cards[49].image}}>
-                    <img id="deckChoice" src={ {cards[49].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[50].color}} datanum={ {cards[50].number}} dataimg={ {cards[50].image}}>
-                    <img id="deckChoice" src={ {cards[50].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[51].color}} datanum={ {cards[51].number}} dataimg={ {cards[51].image}}>
-                    <img id="deckChoice" src={ {cards[51].image}}>
-                </div>
+                {{/each}}
             </div>
         </li>
         <li>
-            <div class="collapsible-header">
-                <i class="material-icons">place</i>Ricky & Morty</div>
+            <div class="collapsible-header" id="coll5">
+                <img src="/assets/images/favicons/rm.jpg" id="rmfav"><b>RICK & MORTY</b></div>
             <div class="collapsible-body">
-                <div class="deck" datacol={ {cards[52].color}} datanum={ {cards[52].number}} dataimg={ {cards[52].image}}>
-                    <img id="deckChoice" src={ {cards[52].image}}>
+                {{#each group5}}
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                    <img id="deckChoice" src={{this.image}}>
                 </div>
-                <div class="deck" datacol={ {cards[53].color}} datanum={ {cards[53].number}} dataimg={ {cards[53].image}}>
-                    <img id="deckChoice" src={ {cards[53].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[54].color}} datanum={ {cards[54].number}} dataimg={ {cards[54].image}}>
-                    <img id="deckChoice" src={ {cards[54].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[55].color}} datanum={ {cards[55].number}} dataimg={ {cards[55].image}}>
-                    <img id="deckChoice" src={ {cards[55].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[56].color}} datanum={ {cards[56].number}} dataimg={ {cards[56].image}}>
-                    <img id="deckChoice" src={ {cards[56].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[57].color}} datanum={ {cards[57].number}} dataimg={ {cards[57].image}}>
-                    <img id="deckChoice" src={ {cards[57].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[58].color}} datanum={ {cards[58].number}} dataimg={ {cards[58].image}}>
-                    <img id="deckChoice" src={ {cards[58].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[59].color}} datanum={ {cards[59].number}} dataimg={ {cards[59].image}}>
-                    <img id="deckChoice" src={ {cards[59].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[60].color}} datanum={ {cards[60].number}} dataimg={ {cards[60].image}}>
-                    <img id="deckChoice" src={ {cards[60].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[61].color}} datanum={ {cards[61].number}} dataimg={ {cards[61].image}}>
-                    <img id="deckChoice" src={ {cards[61].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[62].color}} datanum={ {cards[62].number}} dataimg={ {cards[62].image}}>
-                    <img id="deckChoice" src={ {cards[62].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[63].color}} datanum={ {cards[63].number}} dataimg={ {cards[63].image}}>
-                    <img id="deckChoice" src={ {cards[63].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[64].color}} datanum={ {cards[64].number}} dataimg={ {cards[64].image}}>
-                    <img id="deckChoice" src={ {cards[64].image}}>
-                </div>
+                {{/each}}
             </div>
         </li>
         <li>
-            <div class="collapsible-header">
-                <i class="material-icons">whatshot</i>Adventure Time</div>
+            <div class="collapsible-header" id="coll6">
+                <img src="/assets/images/favicons/at.png" id="atfav"><b>ADVENTURE TIME</b></div>
             <div class="collapsible-body">
-                <div class="deck" datacol={ {cards[65].color}} datanum={ {cards[65].number}} dataimg={ {cards[65].image}}>
-                    <img id="deckChoice" src={ {cards[65].image}}>
+                {{#each group6}}
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                    <img id="deckChoice" src={{this.image}}>
                 </div>
-                <div class="deck" datacol={ {cards[66].color}} datanum={ {cards[66].number}} dataimg={ {cards[66].image}}>
-                    <img id="deckChoice" src={ {cards[66].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[67].color}} datanum={ {cards[67].number}} dataimg={ {cards[67].image}}>
-                    <img id="deckChoice" src={ {cards[67].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[68].color}} datanum={ {cards[68].number}} dataimg={ {cards[68].image}}>
-                    <img id="deckChoice" src={ {cards[68].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[69].color}} datanum={ {cards[69].number}} dataimg={ {cards[69].image}}>
-                    <img id="deckChoice" src={ {cards[69].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[70].color}} datanum={ {cards[70].number}} dataimg={ {cards[70].image}}>
-                    <img id="deckChoice" src={ {cards[70].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[71].color}} datanum={ {cards[71].number}} dataimg={ {cards[71].image}}>
-                    <img id="deckChoice" src={ {cards[71].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[72].color}} datanum={ {cards[72].number}} dataimg={ {cards[72].image}}>
-                    <img id="deckChoice" src={ {cards[72].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[73].color}} datanum={ {cards[73].number}} dataimg={ {cards[73].image}}>
-                    <img id="deckChoice" src={ {cards[73].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[74].color}} datanum={ {cards[74].number}} dataimg={ {cards[74].image}}>
-                    <img id="deckChoice" src={ {cards[74].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[75].color}} datanum={ {cards[75].number}} dataimg={ {cards[75].image}}>
-                    <img id="deckChoice" src={ {cards[75].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[76].color}} datanum={ {cards[76].number}} dataimg={ {cards[76].image}}>
-                    <img id="deckChoice" src={ {cards[76].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[77].color}} datanum={ {cards[77].number}} dataimg={ {cards[77].image}}>
-                    <img id="deckChoice" src={ {cards[77].image}}>
-                </div>
+                {{/each}}
             </div>
         </li>
         <li>
-            <div class="collapsible-header">
-                <i class="material-icons">filter_drama</i>League of Legends</div>
+            <div class="collapsible-header" id="coll7">
+                <img src="/assets/images/favicons/L.png" id="lolfav"><b>LEAGUE OF LEGENDS</b></div>
             <div class="collapsible-body">
-                <div class="deck" datacol={ {cards[78].color}} datanum={ {cards[78].number}} dataimg={ {cards[78].image}}>
-                    <img id="deckChoice" src={ {cards[78].image}}>
+                {{#each group7}}
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                    <img id="deckChoice" src={{this.image}}>
                 </div>
-                <div class="deck" datacol={ {cards[79].color}} datanum={ {cards[79].number}} dataimg={ {cards[79].image}}>
-                    <img id="deckChoice" src={ {cards[79].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[80].color}} datanum={ {cards[80].number}} dataimg={ {cards[80].image}}>
-                    <img id="deckChoice" src={ {cards[80].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[81].color}} datanum={ {cards[81].number}} dataimg={ {cards[81].image}}>
-                    <img id="deckChoice" src={ {cards[81].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[82].color}} datanum={ {cards[82].number}} dataimg={ {cards[82].image}}>
-                    <img id="deckChoice" src={ {cards[82].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[83].color}} datanum={ {cards[83].number}} dataimg={ {cards[83].image}}>
-                    <img id="deckChoice" src={ {cards[83].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[84].color}} datanum={ {cards[84].number}} dataimg={ {cards[84].image}}>
-                    <img id="deckChoice" src={ {cards[84].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[85].color}} datanum={ {cards[85].number}} dataimg={ {cards[85].image}}>
-                    <img id="deckChoice" src={ {cards[85].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[86].color}} datanum={ {cards[86].number}} dataimg={ {cards[86].image}}>
-                    <img id="deckChoice" src={ {cards[86].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[87].color}} datanum={ {cards[87].number}} dataimg={ {cards[87].image}}>
-                    <img id="deckChoice" src={ {cards[87].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[88].color}} datanum={ {cards[88].number}} dataimg={ {cards[88].image}}>
-                    <img id="deckChoice" src={ {cards[88].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[89].color}} datanum={ {cards[89].number}} dataimg={ {cards[89].image}}>
-                    <img id="deckChoice" src={ {cards[89].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[90].color}} datanum={ {cards[90].number}} dataimg={ {cards[90].image}}>
-                    <img id="deckChoice" src={ {cards[90].image}}>
-                </div>
+                {{/each}}
             </div>
         </li>
         <li>
-            <div class="collapsible-header">
-                <i class="material-icons">place</i>Fire Emblem</div>
+            <div class="collapsible-header" id="coll8">
+                <img src="/assets/images/favicons/fe.png" id="fefav"><b>FIRE EMBLEM</b></div>
             <div class="collapsible-body">
-                <div class="deck" datacol={ {cards[91].color}} datanum={ {cards[91].number}} dataimg={ {cards[91].image}}>
-                    <img id="deckChoice" src={ {cards[91].image}}>
+                {{#each group8}}
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                    <img id="deckChoice" src={{this.image}}>
                 </div>
-                <div class="deck" datacol={ {cards[92].color}} datanum={ {cards[92].number}} dataimg={ {cards[92].image}}>
-                    <img id="deckChoice" src={ {cards[92].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[93].color}} datanum={ {cards[93].number}} dataimg={ {cards[93].image}}>
-                    <img id="deckChoice" src={ {cards[93].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[94].color}} datanum={ {cards[94].number}} dataimg={ {cards[94].image}}>
-                    <img id="deckChoice" src={ {cards[94].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[95].color}} datanum={ {cards[95].number}} dataimg={ {cards[95].image}}>
-                    <img id="deckChoice" src={ {cards[95].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[96].color}} datanum={ {cards[96].number}} dataimg={ {cards[96].image}}>
-                    <img id="deckChoice" src={ {cards[96].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[97].color}} datanum={ {cards[97].number}} dataimg={ {cards[97].image}}>
-                    <img id="deckChoice" src={ {cards[97].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[98].color}} datanum={ {cards[98].number}} dataimg={ {cards[98].image}}>
-                    <img id="deckChoice" src={ {cards[98].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[99].color}} datanum={ {cards[99].number}} dataimg={ {cards[99].image}}>
-                    <img id="deckChoice" src={ {cards[99].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[100].color}} datanum={ {cards[100].number}} dataimg={ {cards[100].image}}>
-                    <img id="deckChoice" src={ {cards[100].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[101].color}} datanum={ {cards[101].number}} dataimg={ {cards[101].image}}>
-                    <img id="deckChoice" src={ {cards[101].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[102].color}} datanum={ {cards[102].number}} dataimg={ {cards[102].image}}>
-                    <img id="deckChoice" src={ {cards[102].image}}>
-                </div>
-                <div class="deck" datacol={ {cards[103].color}} datanum={ {cards[103].number}} dataimg={ {cards[103].image}}>
-                    <img id="deckChoice" src={ {cards[103].image}}>
-                </div>
+                {{/each}}
             </div>
         </li>
     </ul>
