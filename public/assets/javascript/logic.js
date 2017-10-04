@@ -261,13 +261,13 @@ $(document).ready(function() {
             case 1:
             case 7:
                 if (col_one === 0 && col_two === 7) {
-                    return "win";
+                    return "lose";
                 }
                 else if (col_one > col_two) {
-                    return "win";
+                    return "lose";
                 }
                 else if (col_one < col_two) {
-                    return "lose";
+                    return "win";
                 }
                 break;
             // Smaller number wins
@@ -383,12 +383,15 @@ $(document).ready(function() {
 
     function updateDeck() {
         $.get("/deck/"+firebase.auth().currentUser.email, function(data){
-            console.log(data);
+            
             for (var i=0; i<20; i++) {
                 if (data[i]) {
                     $("#deckCard" + i).attr("datacol", data[i].color);
                     $("#deckCard" + i).attr("datanum", data[i].number);
+                    $("#deckCard" + i).attr("datacardnum", data[i].cardNumber);
                     $("#deckCard" + i).html("<img class='deckCard' src='" + data[i].image + "'>");
+
+                    $("#"+data[i].cardNumber).hide();
                 }
                 else {
                     $("#deckCard" + i).html("");
@@ -398,8 +401,8 @@ $(document).ready(function() {
     }
 
     $(".deckCard").on("click", function() {
-        console.log($(this).attr("datacol"));
-        console.log($(this).attr("datanum"));
+        var number = parseInt($(this).attr("datacardnum"));
+        $("#"+number).show();
 
         var card = {
             color: $(this).attr("datacol"),
@@ -418,18 +421,20 @@ $(document).ready(function() {
     });
 
     $(".deck").on("click", function() {
-        console.log($(this).attr("datacol"));
-        console.log($(this).attr("datanum"));
-        console.log(firebase.auth().currentUser.email);
+        var number = parseInt($(this).attr("id"));
+
+        console.log(number);
+        
         
         var card = {
             color: $(this).attr("datacol"),
             number: $(this).attr("datanum"),
             image: $(this).attr("dataimg"),
-            owner: firebase.auth().currentUser.email
+            owner: firebase.auth().currentUser.email,
+            cardNumber: number
         }
         $.post("/addcard", card, function(data){
-            console.log(data);
+            
             updateDeck();
         })
 

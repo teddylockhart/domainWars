@@ -17,6 +17,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       owner: {
           type: DataTypes.STRING
+      },
+      cardNumber: {
+          type: DataTypes.INTEGER
       }
     });
     return Decks;

@@ -155,7 +155,24 @@ div.container {
 }
 
 #deckbuilder #deckChoice {
-    width: 50px;
+    width: 100%;
+}
+
+.deck {
+    width: 12%;
+    margin: 1%;
+    float: left;
+}
+
+.collapsible-header {
+    clear: both;
+}
+
+#deckbuilder #deckMessage {
+    text-align: center;
+    font-size: 28px;
+    color: white;
+    margin-bottom: 10px;
 }
 
 /* Nintendo */
