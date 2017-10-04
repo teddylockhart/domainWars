@@ -29,15 +29,37 @@ module.exports = function(app) {
     });
 
     app.get("/deckbuilder", function(req, res){
-
-        var cardArray = [];
-        var playerCards = []
+        
+        var cardArray1 = []; 
+        var cardArray2 = []; 
+        var cardArray3 = []; 
+        var cardArray4 = []; 
+        var cardArray5 = []; 
+        var cardArray6 = []; 
+        var cardArray7 = []; 
+        var cardArray8 = [];
+        
         db.Cards.findAll().then(cards => {
             for(var i=0; i<cards.length; i++){
-                cardArray.push(cards[i].dataValues);
+                if ((i/13) < 1) {cardArray1.push(cards[i].dataValues);}
+                else if ((i/13) < 2) {cardArray2.push(cards[i].dataValues);}
+                else if ((i/13) < 3) {cardArray3.push(cards[i].dataValues);}
+                else if ((i/13) < 4) {cardArray4.push(cards[i].dataValues);}
+                else if ((i/13) < 5) {cardArray5.push(cards[i].dataValues);}
+                else if ((i/13) < 6) {cardArray6.push(cards[i].dataValues);}
+                else if ((i/13) < 7) {cardArray7.push(cards[i].dataValues);}
+                else if ((i/13) < 7) {cardArray8.push(cards[i].dataValues);}
             }
 
-            res.render("deckbuilder", {cards: cardArray});
+
+            res.render("deckbuilder", {group1: cardArray1,
+                                    group2: cardArray2,
+                                    group3: cardArray3,
+                                    group4: cardArray4,
+                                    group5: cardArray5,
+                                    group6: cardArray6,
+                                    group7: cardArray7,
+                                    group8: cardArray8});
         })
     });
 
@@ -109,7 +131,7 @@ module.exports = function(app) {
         res.end();
     });
 
-    app.post("/addcard", function(req, res){
+    app.post("/addcard", function(req, res){    
         db.Decks.count({ where: {owner: req.body.owner}}).then(c => {
             if (c < 20){
                 db.Decks.findAll({ where: {
@@ -123,7 +145,8 @@ module.exports = function(app) {
                             color: req.body.color,
                             number: req.body.number,
                             image: req.body.image,
-                            owner: req.body.owner
+                            owner: req.body.owner,
+                            cardNumber: req.body.cardNumber
                         });
                         res.redirect("/deckbuilder");
                     }
