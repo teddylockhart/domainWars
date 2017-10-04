@@ -11,7 +11,7 @@
             <div class="col s3 navHov">
                 <a href="/profile">Home</a>
             </div>
-            <div class="col s3 navHov">
+            <div id="logOutBtn" class="col s3 navHov">
                 <a href="/">Logout</a>
             </div>
         </div>
@@ -20,13 +20,13 @@
 
 <div class="container" id=deckbuilder>
 
-    <a href="/arena"><button id="start">Go to Arena</button></a>
-
     <ul class="collapsible popout" data-collapsible="accordion">
         <li>
+
             <div class="collapsible-header" id="coll1">
                 {{!-- <i class="material-icons">filter_drama</i><b>Nintendo</b></div> --}}
                 <img src="/assets/images/favicons/mariofavicon.ico" id="mariofav"><b>Nintendo</b></div>
+
             <div class="collapsible-body">
                 <div class="deck" datacol={ {cards[0].color}} datanum={ {cards[0].number}} dataimg={ {cards[0].image}}>
                     <img id="deckChoice" src={ {cards[0].image}}>
