@@ -1,20 +1,22 @@
-var config = {
-    apiKey: "AIzaSyCyoSG6PlAbNFsQiD412QwOrZDhnE-WBiI",
-    authDomain: "domainwars-6193c.firebaseapp.com",
-    databaseURL: "https://domainwars-6193c.firebaseio.com",
-    projectId: "domainwars-6193c",
-    storageBucket: "domainwars-6193c.appspot.com",
-    messagingSenderId: "15439536695"
-};
-
-firebase.initializeApp(config);
-
-var allCardsArray = [];
-var player, computer, currentUser;
-
 $(document).ready(function() {
 
+    var config = {
+        apiKey: "AIzaSyCyoSG6PlAbNFsQiD412QwOrZDhnE-WBiI",
+        authDomain: "domainwars-6193c.firebaseapp.com",
+        databaseURL: "https://domainwars-6193c.firebaseio.com",
+        projectId: "domainwars-6193c",
+        storageBucket: "domainwars-6193c.appspot.com",
+        messagingSenderId: "15439536695"
+    };
+    
+    firebase.initializeApp(config);
+
+    var allCardsArray = [];
+    var player, computer, currentUser;
+    var waiting;
+
     $("#signIn").hide();
+    $("#roundUp").hide();
 
     function Player(name, deck) {
         this.name = name;
@@ -73,6 +75,29 @@ $(document).ready(function() {
         }
     }
 
+    $("#roundUp").on("click", function() {
+        $("#roundUp").hide();
+        $("#battleBoxPlayer").html("");
+        $("#battleBoxComp").html("");
+        $("#playerDiscard").html(player.last.color + player.last.number);
+        $("#compDiscard").html(computer.last.color + computer.last.number);
+        updateCards();
+        
+        waiting = false;
+    });
+
+    $("#goToArena").on("click", function(){
+        $.get("/deck/"+firebase.auth().currentUser.email, function(data){
+            console.log(data);
+            if (data.length === 20) {
+                window.location.assign("/arena");
+            }
+            else {
+                $("#deckMessage").html("Deck too small, you need 20 cards");
+            }
+        });
+    })
+
     $("#start").on("click", function(){
         $.post("/deckbuilder", function(data) {
 
@@ -100,24 +125,22 @@ $(document).ready(function() {
     $("#signInBtn").on("click", function(){
         event.preventDefault();
 
-        currentUser = $("#signInEmail").val().trim();
+        var email = $("#signInEmail").val().trim();
         var password = $("#signInPass").val().trim();
 
-        var user = {
-            username: currentUser,
-            password: password
-        }
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
+            var user = firebase.auth().currentUser;
+            currentUser = user.displayName;
+            $("#signInEmail, #signInPass").val("");
+        }).catch(function(error) {
+            
+            //  Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            $(".errorMsg").html(errorMessage);
+            $("#signInEmail, #signInPass").val("");
+        });
 
-        $.post("/signin/"+currentUser, user, function(data){
-
-            if(data.success) {
-                window.location.assign("/deckbuilder")
-            }
-            else {
-                $(".errMsg").html(data.message);
-                $("#signInEmail, #signInPass").val("");
-            }
-        })
 
     });
 
@@ -150,10 +173,14 @@ $(document).ready(function() {
                     displayName: currentUser
                 }).catch(function(error) {});
                 
+                $.post("/signup", {email: email}, function(){
+
+                })
+
                 // Clear input fields
                 $("#signUpEmail, #signUpName, #signUpPass, #passwordConfirm").val("");
 
-                window.location.assign("/deckbuilder");
+                window.location.assign("/profile");
 
             }).catch(function(error) {
                 
@@ -187,38 +214,44 @@ $(document).ready(function() {
     });
 
     $(".playercard").on("click", function(){
-        var num = ($(this).attr("data"));
-        // Computer pick a random card
-        var compChoice = Math.floor(Math.random()*(computer.hand.length));
-        var compCard = computer.hand[compChoice];
-        // Outcome is decided by battle function
-        var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number, 
-                            parseInt(compCard.color.charAt(0)), compCard.number);
-        console.log("Player played: " + player.hand[num].color + " " + player.hand[num].number);
-        console.log("Computer played: " + compCard.color + " " + compCard.number);
-        console.log(outcome);
-        // Depending on outcome, call proper playCard functions on each player
-        switch (outcome) {
-            case "win":
-                player.playCard(num, false);
-                computer.playCard(compChoice, true);
-                break;
-            case "lose":
-                player.playCard(num, true);
-                computer.playCard(compChoice, false);
-                break;
-            case "draw":
-                player.playCard(num, false);
-                computer.playCard(compChoice, false);
-                break;
-        }
-        // Each player draws another card
-        player.drawCard();
-        computer.drawCard();
-        console.log(player);
-        console.log(computer);
-        // Update the html
-        updateCards();
+        if(!waiting) {
+            var num = ($(this).attr("data"));
+            // Computer pick a random card
+            var compChoice = Math.floor(Math.random()*(computer.hand.length));
+            var compCard = computer.hand[compChoice];
+            // Outcome is decided by battle function
+            var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number, 
+                                parseInt(compCard.color.charAt(0)), compCard.number);
+
+            $("#battleBoxPlayer").html(player.hand[num].color + player.hand[num].number);
+            $("#battleBoxComp").html(compCard.color + compCard.number);
+            $("#roundUp").show();
+
+            // Depending on outcome, call proper playCard functions on each player
+            switch (outcome) {
+                case "win":
+                    player.playCard(num, false);
+                    computer.playCard(compChoice, true);
+                    break;
+                case "lose":
+                    player.playCard(num, true);
+                    computer.playCard(compChoice, false);
+                    break;
+                case "draw":
+                    player.playCard(num, false);
+                    computer.playCard(compChoice, false);
+                    break;
+            }
+            
+           
+            // Each player draws another card
+            player.drawCard();
+            computer.drawCard();
+            console.log(player);
+            console.log(computer);
+            
+            waiting = true;
+        }  
     })
 
     function battle(col_one, num_one, col_two, num_two){
@@ -309,7 +342,7 @@ $(document).ready(function() {
         }
     }
 
-    function setUpPlayers(){
+    function setUpPlayers() {
         // Create an array of 20 unique random numbers between 0-104
         var cardNumbers = [];
         var deck1 = [];
@@ -347,36 +380,70 @@ $(document).ready(function() {
         computer.drawCard();
     }
 
-    $(".card").on("click", function() {
+    function updateDeck() {
+        $.get("/deck/"+firebase.auth().currentUser.email, function(data){
+            console.log(data);
+            for (var i=0; i<20; i++) {
+                if (data[i]) {
+                    $("#deckCard" + i).attr("datacol", data[i].color);
+                    $("#deckCard" + i).attr("datanum", data[i].number);
+                    $("#deckCard" + i).html("<img class='deckCard' src='" + data[i].image + "'>");
+                }
+                else {
+                    $("#deckCard" + i).html("");
+                }
+            }
+        })
+    }
+
+    $(".deckCard").on("click", function() {
         console.log($(this).attr("datacol"));
         console.log($(this).attr("datanum"));
 
         var card = {
             color: $(this).attr("datacol"),
             number: $(this).attr("datanum"),
+            owner: firebase.auth().currentUser.email
+        }
+
+        $.ajax({
+            method: "DELETE",
+            url: "/deletecard/"+card.color+"/"+card.number+"/"+card.owner,
+            success: function(data) {},
+            complete: function(data) {
+                updateDeck();
+            }
+        })
+    });
+
+    $(".deck").on("click", function() {
+        console.log($(this).attr("datacol"));
+        console.log($(this).attr("datanum"));
+        console.log(firebase.auth().currentUser.email);
+        
+        var card = {
+            color: $(this).attr("datacol"),
+            number: $(this).attr("datanum"),
             image: $(this).attr("dataimg"),
-            owner: firebase.auth().currentUser.displayName
+            owner: firebase.auth().currentUser.email
         }
         $.post("/addcard", card, function(data){
             console.log(data);
+            updateDeck();
         })
 
     });
 
     firebase.auth().onAuthStateChanged(function(user) {
 
-        // if (user) {
+        if (user) {
+            if (!currentUser) { currentUser = user.displayName; }
 
-        //     if (!currentUser) { currentUser = user.displayName; }
-
-        // } else {
-        //     if(window.location.pathname != "/") {
-        //         window.location.assign("/");
-        //     }
-        // }
-        $.get("/deckbuilder", { username: firebase.auth().currentUser.displayName }, function(data){
-            
-        })
-    });
-
+            updateDeck();
+        } else {
+            if(window.location.pathname != "/") {
+                window.location.assign("/");
+            }
+        }
+    });    
 });

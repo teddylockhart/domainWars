@@ -2,8 +2,6 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-    var userIn = false;
-
     app.get("/", function(req, res){
         
         res.render("index");
@@ -11,7 +9,7 @@ module.exports = function(app) {
 
     app.get("/allcards", function(req, res){
         var cardArray = [];
-        db.cards.findAll().then(cards => {
+        db.Cards.findAll().then(cards => {
             for(var i=0; i<cards.length; i++){
                 cardArray.push(cards[i].dataValues);
             }
@@ -31,34 +29,41 @@ module.exports = function(app) {
     });
 
     app.get("/deckbuilder", function(req, res){
-        console.log("Query: " + req.query.username);
+
         var cardArray = [];
         var playerCards = []
-        db.cards.findAll().then(cards => {
+        db.Cards.findAll().then(cards => {
             for(var i=0; i<cards.length; i++){
                 cardArray.push(cards[i].dataValues);
             }
 
-            db.Decks.findAll({ where: {owner: req.query.username}}).then(pc =>{
-                for(var i=0; i<pc.length; i++){
-                    playerCards.push(pc[i].dataValues);
-                }
-                res.render("deckbuilder", {cards: cardArray, pc: playerCards});
-            })
+            res.render("deckbuilder", {cards: cardArray});
         })
     });
 
-    app.post("/signup/:user", function(req, res){
+    app.get("/deck/:user", function(req, res){
+        var userCards = [];
+        db.Decks.findAll({where: {owner: req.params.user}}).then(cards => {
+            for(var i=0; i<cards.length; i++){
+                userCards.push(cards[i].dataValues);
+            }
 
-        db.Users.findOne({ where: {username: req.params.user} }).then(user => {
-            console.log(user);
+            res.json(userCards);
+        })
+    })
+
+    app.post("/signup", function(req, res){
+
+        db.Users.findOne({ where: {email: req.body.email} }).then(user => {
+
             if (user) {
                 res.send(false);
             }
             else {
                 db.Users.create({
-                    username: req.body.username,
-                    password: req.body.password
+                    email: req.body.email,
+                    wins: 0,
+                    losses: 0
                 })
                 res.send(true);
             }
@@ -106,7 +111,7 @@ module.exports = function(app) {
 
     app.post("/addcard", function(req, res){
         db.Decks.count({ where: {owner: req.body.owner}}).then(c => {
-            if (c <= 20){
+            if (c < 20){
                 db.Decks.findAll({ where: {
                                     color: req.body.color,
                                     number: req.body.number,
@@ -133,22 +138,32 @@ module.exports = function(app) {
         })
 
     })
+
+    app.delete("/deletecard/:color/:number/:owner", function(req, res){
+        db.Decks.destroy({where: {
+            color: req.params.color,
+            number: req.params.number,
+            owner: req.params.owner
+        }}).then(results =>{
+            res.end();
+        });
+    })
 };
 // Create cards numbered 1-13 for each color in the colors array
 function createAllCards() { 
-    var imageSetOne = ["something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg"];
-    var imageSetTwo = ["something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg"];
-    var imageSetThree = ["something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg"];
-    var imageSetFour = ["something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg"];
-    var imageSetFive = ["something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg"];
-    var imageSetSix = ["something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg"];
-    var imageSetSeven = ["something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg"];
-    var imageSetEight = ["something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg", "something.jpg"];
+    var imageSetOne = ["/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png"];
+    var imageSetTwo = ["/assets/images/disney/d1.png", "/assets/images/disney/d2.png", "/assets/images/disney/d3.png", "/assets/images/disney/d4.png", "/assets/images/disney/d5.png", "/assets/images/disney/d6.png", "/assets/images/disney/d7.png", "/assets/images/disney/d8.png", "/assets/images/disney/d9.png", "/assets/images/disney/d10.png", "/assets/images/disney/d11.png", "/assets/images/disney/d12.png", "/assets/images/disney/d13.png"];
+    var imageSetThree = ["/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png"];
+    var imageSetFour = ["/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png"];
+    var imageSetFive = ["/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png"];
+    var imageSetSix = ["/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png"];
+    var imageSetSeven = ["/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png"];
+    var imageSetEight = ["/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png"];
     var imagesSet = [imageSetOne, imageSetTwo, imageSetThree, imageSetFour, imageSetFive, imageSetSix, imageSetSeven, imageSetEight]
     var colors = ["0red", "1orange", "2yellow", "3green", "4blue", "5purple", "6black", "7white"];
     for (var i=0; i<colors.length; i++) {
         for (var j=0; j<13; j++) {
-            db.cards.create({
+            db.Cards.create({
                 color: colors[i],
                 number: (j+1),
                 image: imagesSet[i][j]
