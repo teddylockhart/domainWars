@@ -29,7 +29,7 @@ module.exports = function(app) {
     });
 
     app.get("/deckbuilder", function(req, res){
-        
+
         var cardArray1 = []; 
         var cardArray2 = []; 
         var cardArray3 = []; 
