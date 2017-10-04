@@ -19,35 +19,36 @@
 </nav>
 
 <div class="container" id="deckbuilder">
-
-    <div class="center-align"id="deckMessage">Your Deck</div>
-    <div class="row">
-        <div class="col s1 m1 l1"></div>
-        <div id="deckCard0" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard1" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard2" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard3" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard4" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard5" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard6" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard7" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard8" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard9" class="col s1 m1 l1 deckCard"></div>
-        <div class="col s1 m1 l1"></div>
-    </div>
-    <div class="row">
-        <div class="col s1 m1 l1"></div>
-        <div id="deckCard10" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard11" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard12" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard13" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard14" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard15" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard16" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard17" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard18" class="col s1 m1 l1 deckCard"></div>
-        <div id="deckCard19" class="col s1 m1 l1 deckCard"></div>
-        <div class="col s1 m1 l1"></div>
+    <div id="deckcontainer">
+        <div class="center-align"id="deckMessage">Your Deck</div>
+        <div class="row">
+            <div class="col s1 m1 l1"></div>
+            <div id="deckCard0" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard1" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard2" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard3" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard4" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard5" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard6" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard7" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard8" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard9" class="col s1 m1 l1 deckCard"></div>
+            <div class="col s1 m1 l1"></div>
+        </div>
+        <div class="row">
+            <div class="col s1 m1 l1"></div>
+            <div id="deckCard10" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard11" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard12" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard13" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard14" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard15" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard16" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard17" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard18" class="col s1 m1 l1 deckCard"></div>
+            <div id="deckCard19" class="col s1 m1 l1 deckCard"></div>
+            <div class="col s1 m1 l1"></div>
+        </div>
     </div>
 
     <ul class="collapsible popout" data-collapsible="accordion">
@@ -56,7 +57,7 @@
                 <img src="/assets/images/favicons/mariofavicon.ico" id="mariofav"><b>NINTENDO</b></div>
             <div class="collapsible-body">
                 {{#each group1}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -79,7 +80,7 @@
                 <img src="/assets/images/favicons/pokemonfavicon.png" id="pokefav"><b>POKEMON</b></div>
             <div class="collapsible-body">
                 {{#each group3}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -90,7 +91,7 @@
                 <img src="/assets/images/favicons/la.png" id="avatarfav"><b>AVATAR LAST AIRBENDER</b></div>
             <div class="collapsible-body">
                 {{#each group4}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -101,7 +102,7 @@
                 <img src="/assets/images/favicons/rm.jpg" id="rmfav"><b>RICK & MORTY</b></div>
             <div class="collapsible-body">
                 {{#each group5}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -112,7 +113,7 @@
                 <img src="/assets/images/favicons/at.png" id="atfav"><b>ADVENTURE TIME</b></div>
             <div class="collapsible-body">
                 {{#each group6}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -123,7 +124,7 @@
                 <img src="/assets/images/favicons/L.png" id="lolfav"><b>LEAGUE OF LEGENDS</b></div>
             <div class="collapsible-body">
                 {{#each group7}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -134,7 +135,7 @@
                 <img src="/assets/images/favicons/fe.png" id="fefav"><b>FIRE EMBLEM</b></div>
             <div class="collapsible-body">
                 {{#each group8}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}

@@ -85,6 +85,11 @@ body {
     background-color: rgba(255, 255, 255, 0.85);
 }
 
+#switchToSignIn:hover,
+#switchToSignUp:hover {
+    cursor: pointer;
+}
+
 #signIn,
 #signUp {
     width: 400px;
@@ -156,6 +161,10 @@ div.container {
 
 #deckbuilder #deckChoice {
     width: 100%;
+}
+
+#deckbuilder #deckcontainer {
+    min-height: 270px;
 }
 
 .deck {
