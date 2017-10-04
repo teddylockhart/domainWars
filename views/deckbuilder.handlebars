@@ -11,7 +11,7 @@
             <div class="col s3 navHov">
                 <a href="/profile">Home</a>
             </div>
-            <div class="col s3 navHov">
+            <div id="logOutBtn" class="col s3 navHov">
                 <a href="/">Logout</a>
             </div>
         </div>
@@ -53,7 +53,7 @@
     <ul class="collapsible popout" data-collapsible="accordion">
         <li>
             <div class="collapsible-header" id="coll1">
-                <img src="/assets/images/favicons/mariofavicon.ico" id="mariofav"><b>NINTENDO</b></div>
+                <img src="/assets/images/favicons/mariofavicon.ico" id="mariofav"><b>MARIO</b></div>
             <div class="collapsible-body">
                 {{#each group1}}
                 <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
