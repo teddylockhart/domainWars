@@ -8,9 +8,9 @@
     /* width:150px;
     height:210px; */
     background-color:red;
-    /* padding:5px; */
     border: solid 1px white;
-    min-height:186px;
+    min-height:300px;
+    /* padding-bottom:45px; */
 }
 
 #rulesBox {
@@ -56,6 +56,20 @@ body {
     background-position: center; 
 }
 
+/* #introArena {
+    height: 300px;
+    font-size: 70px;
+    color:white;
+}
+
+#play {
+    color: #353030;
+    background-color: #D6D6D6;
+    font-size: 50px;
+    
+
+} */
+
 .noMarg {
     margin:0;
     padding:0;
@@ -63,7 +77,9 @@ body {
 
 #battleBoxPlayer,
 #battleBoxComp {
-    height:186px;
+    height:300px;
+    /* padding-bottom:45px; */
+    background-color: blueviolet;
 }
 
 .avatarButton {
@@ -77,12 +93,17 @@ body {
 .deckBox {
     background-color: rgba(255, 255, 0, 0.35);
     border:solid 1px white;
-    height:93px;
+    height:150px;
 }
 
 /* INDEX PAGE STYLING */
 .card-panel {
     background-color: rgba(255, 255, 255, 0.85);
+}
+
+#switchToSignIn:hover,
+#switchToSignUp:hover {
+    cursor: pointer;
 }
 
 #signIn,
@@ -156,6 +177,10 @@ div.container {
 
 #deckbuilder #deckChoice {
     width: 100%;
+}
+
+#deckbuilder #deckcontainer {
+    min-height: 270px;
 }
 
 .deck {
