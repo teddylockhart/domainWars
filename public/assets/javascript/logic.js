@@ -96,8 +96,8 @@ $(document).ready(function () {
         $("#roundUp").hide();
         $("#battleBoxPlayer").html("");
         $("#battleBoxComp").html("");
-        $("#playerDiscard").html(player.last.color + player.last.number);
-        $("#compDiscard").html(computer.last.color + computer.last.number);
+        $("#playerDiscard").html("<img id='hand' src='"+player.last.image+"'>");
+        $("#compDiscard").html("<img id='hand' src='"+computer.last.image+"'>");
         updateCards();
 
         waiting = false;
@@ -245,8 +245,8 @@ $(document).ready(function () {
             var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number,
                 parseInt(compCard.color.charAt(0)), compCard.number);
 
-            $("#battleBoxPlayer").html(player.hand[num].color + player.hand[num].number);
-            $("#battleBoxComp").html(compCard.color + compCard.number);
+            $("#battleBoxPlayer").html("<img id='hand' src='"+player.hand[num].image+"'>");
+            $("#battleBoxComp").html("<img id='hand' src='"+compCard.image+"'>");
             $("#roundUp").show();
 
             // Depending on outcome, call proper playCard functions on each player
