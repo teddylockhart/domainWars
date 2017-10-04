@@ -131,6 +131,7 @@ $(document).ready(function() {
         firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
             var user = firebase.auth().currentUser;
             currentUser = user.displayName;
+            window.location.assign("/profile");
             $("#signInEmail, #signInPass").val("");
         }).catch(function(error) {
             

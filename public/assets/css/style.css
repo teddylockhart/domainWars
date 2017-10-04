@@ -80,7 +80,7 @@ body {
     height:93px;
 }
 
-/* JASMINE */
+/* INDEX PAGE STYLING */
 .card-panel {
     background-color: rgba(255, 255, 255, 0.85);
 }
@@ -101,27 +101,23 @@ div.container {
     margin: 0 auto;
 }
 
-/* Div containing the submit button and login link */
-.center-btn {
-    text-align: center;
-}
-
 .btn waves-effect waves-light {
     margin-right: 10px;
 }
 
-a {
+#a {
     margin-left: 10px;
 }
 
-nav .nav-wrapper {
+/* .navbar-fixed {
     background-color:black;
     color:white;
-}
+    margin: 0 auto;
+} */
 
-div.container {
+/* div.container {
     margin-top: 50px;
-}
+} */
 
 .deckCard {
     width: 100%;
@@ -152,12 +148,67 @@ div.container {
     width: 100%;
 }
 
-/* DECKBUILDER STYLING */
+/* DECKBUILDER PAGE STYLING */
 #deckbuilder .collapsible-body {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 #deckbuilder #deckChoice {
     width: 50px;
+}
+
+/* Nintendo */
+#deckbuilder #coll1 {
+    background-color: #981b1F;   
+}
+
+/* Disney */
+#deckbuilder #coll2 {
+    background-color: #9E9E9E;   
+}
+
+/* Pokemon */
+#deckbuilder #coll3 {
+    background-color: #445781;   
+}
+
+/* Avatar */
+#deckbuilder #coll4 {
+    background-color: #B2956D;   
+}
+
+/* Rick & Morty */
+#deckbuilder #coll5 {
+    background-color: #8CA98A;   
+}
+
+/* Adventure Time */
+#deckbuilder #coll6 {
+    background-color: #F47C25;   
+}
+
+/* League of Legends */
+#deckbuilder #coll7 {
+    background-color: #D1D25D;   
+}
+
+/* Fire Emblem */
+#deckbuilder #coll8 {
+    background-color: #645A96;   
+}
+
+#deckbuilder #mariofav {
+    height: 20px;
+    padding-right: 22px;
+}
+
+#deckbuilder #disneyfav {
+    height: 18px;
+    padding-right: 22px;
+}
+
+#deckbuilder #pokefav {
+    height: 20px;
+    padding-right: 22px;
 }
