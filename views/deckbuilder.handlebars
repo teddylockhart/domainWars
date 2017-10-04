@@ -11,7 +11,7 @@
             <div class="col s3 navHov">
                 <a href="/profile">Home</a>
             </div>
-            <div class="col s3 navHov">
+            <div id="logOutBtn" class="col s3 navHov">
                 <a href="/">Logout</a>
             </div>
         </div>
@@ -53,10 +53,10 @@
     <ul class="collapsible popout" data-collapsible="accordion">
         <li>
             <div class="collapsible-header" id="coll1">
-                <img src="/assets/images/favicons/mariofavicon.ico" id="mariofav"><b>NINTENDO</b></div>
+                <img src="/assets/images/favicons/mariofavicon.ico" id="mariofav"><b>MARIO</b></div>
             <div class="collapsible-body">
                 {{#each group1}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -79,7 +79,7 @@
                 <img src="/assets/images/favicons/pokemonfavicon.png" id="pokefav"><b>POKEMON</b></div>
             <div class="collapsible-body">
                 {{#each group3}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -90,7 +90,7 @@
                 <img src="/assets/images/favicons/la.png" id="avatarfav"><b>AVATAR LAST AIRBENDER</b></div>
             <div class="collapsible-body">
                 {{#each group4}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -101,7 +101,7 @@
                 <img src="/assets/images/favicons/rm.jpg" id="rmfav"><b>RICK & MORTY</b></div>
             <div class="collapsible-body">
                 {{#each group5}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -112,7 +112,7 @@
                 <img src="/assets/images/favicons/at.png" id="atfav"><b>ADVENTURE TIME</b></div>
             <div class="collapsible-body">
                 {{#each group6}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -123,7 +123,7 @@
                 <img src="/assets/images/favicons/L.png" id="lolfav"><b>LEAGUE OF LEGENDS</b></div>
             <div class="collapsible-body">
                 {{#each group7}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
@@ -134,7 +134,7 @@
                 <img src="/assets/images/favicons/fe.png" id="fefav"><b>FIRE EMBLEM</b></div>
             <div class="collapsible-body">
                 {{#each group8}}
-                <div class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
+                <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <img id="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
