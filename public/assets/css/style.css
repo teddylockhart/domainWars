@@ -171,12 +171,18 @@ div.container {
 
 /* DECKBUILDER PAGE STYLING */
 #deckbuilder .collapsible-body {
-    background-color: white;
+    background-color: #dddbd6;
     color: black;
+    height: 390px;
+}
+
+#deckbuilder ul.collapsible.popout {
+    margin-bottom: 75px;
 }
 
 #deckbuilder #deckChoice {
     width: 100%;
+
 }
 
 #deckbuilder #deckcontainer {
@@ -191,6 +197,7 @@ div.container {
 
 .collapsible-header {
     clear: both;
+    border: 0px;
 }
 
 #deckbuilder #deckMessage {
@@ -240,6 +247,7 @@ div.container {
     background-color: #645A96;   
 }
 
+/* Favicons */
 #deckbuilder #mariofav {
     height: 30px;
     padding-right: 22px;
