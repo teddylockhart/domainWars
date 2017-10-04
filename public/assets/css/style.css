@@ -85,6 +85,12 @@ body {
     background-color: rgba(255, 255, 255, 0.85);
 }
 
+#signIn,
+#signUp {
+    width: 400px;
+    margin: 0 auto;
+}
+
 input#name.validate,
 input#password.validate {
     color: #000;
