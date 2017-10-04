@@ -5,12 +5,9 @@
 #computercard0,
 #computercard1,
 #computercard2 {
-    /* width:150px;
-    height:210px; */
+    height:234px;
     background-color:red;
     border: solid 1px white;
-    min-height:300px;
-    /* padding-bottom:45px; */
 }
 
 #rulesBox {
@@ -73,11 +70,12 @@ body {
 .noMarg {
     margin:0;
     padding:0;
+    height: 30%;
 }
 
 #battleBoxPlayer,
 #battleBoxComp {
-    height:300px;
+    height:234px;
     /* padding-bottom:45px; */
     background-color: blueviolet;
 }
@@ -93,7 +91,11 @@ body {
 .deckBox {
     background-color: rgba(255, 255, 0, 0.35);
     border:solid 1px white;
-    height:150px;
+    height:117px;
+}
+
+#hand {
+    height: 100%;
 }
 
 /* INDEX PAGE STYLING */

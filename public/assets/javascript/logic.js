@@ -20,12 +20,6 @@ $(document).ready(function () {
     $("#outroArena").hide();
     // $("#introArena").hide();
     $("#gameArena").hide();
-
-    $("#play").on("click", function () {
-        $("#gameArena").show();
-        $("#introArena").hide();
-    })
-
    
     $('.modal').modal({
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -40,8 +34,6 @@ $(document).ready(function () {
           }
       }
     );
-    
-    
 
     function Player(name, deck) {
         this.name = name;
@@ -129,22 +121,26 @@ $(document).ready(function () {
         });
     });
 
-    $("#arena").on("click", function () {
-        $.get("/allcards", function (data) {
-            allCardsArray = data;
-            console.log("Cards loaded");
+    $("#play").on("click", function(){
+        var playerDeck = [];
+        $.get("/deck/"+firebase.auth().currentUser.email, function(data){
+            $("#introMessage").html(data.length);
+            if (data.length != 20) {
+                $("#introMessage").html("Your deck must be 20 cards to play, go back to Builder to add more cards!");
+            }
+            else {
+                for (var i=0; i<data.length; i++) {
+                    playerDeck.push(data[i]);
+                }
+                $("#gameArena").show();
+                $("#introArena").hide();
+                $.get("/allcards", function (data) {
+                    allCardsArray = data;
+                    setUpPlayers(playerDeck);
+                    updateCards();
+                });
+            }
         })
-    });
-
-    $("#setup").on("click", function () {
-        setUpPlayers();
-        console.log("Players setup");
-        console.log(player);
-        console.log(computer);
-    });
-
-    $("#battle").on("click", function () {
-        updateCards();
     });
 
     $("#signInBtn").on("click", function () {
@@ -351,15 +347,13 @@ $(document).ready(function () {
     function updateCards() {
         for (var i = 0; i < 3; i++) {
             if (player.cardCount > i) {
-                $("#playercard" + i).html("<p>" + player.hand[i].color + "</p><p>" +
-                    player.hand[i].number + "</p><p>" + player.hand[i].image);
+                $("#playercard" + i).html("<img id='hand' src='"+player.hand[i].image+"'>");
             }
             else {
                 $("#playercard" + i).html("No card left");
             }
             if (computer.cardCount > i) {
-                $("#computercard" + i).html("<p>" + computer.hand[i].color + "</p><p>" +
-                    computer.hand[i].number + "</p><p>" + computer.hand[i].image);
+                $("#computercard" + i).html("<img id='hand' src='"+computer.hand[i].image+"'>");
             }
             else {
                 $("#computercard" + i).html("No card left");
@@ -367,32 +361,22 @@ $(document).ready(function () {
         }
     }
 
-    function setUpPlayers() {
-        // Create an array of 20 unique random numbers between 0-104
+    function setUpPlayers(playerDeck) {
         var cardNumbers = [];
-        var deck1 = [];
-        var deck2 = [];
+        var computerDeck = [];
+        // Create an array of 20 unique random numbers between 0-104
         while (cardNumbers.length < 20) {
             var randomnumber = Math.floor(Math.random() * 104)
             if (cardNumbers.indexOf(randomnumber) > -1) continue;
             cardNumbers[cardNumbers.length] = randomnumber;
         }
-        // Use that array to pick cards from the database
+        // Use that array to pick cards for the computer from the database
         for (var i = 0; i < cardNumbers.length; i++) {
-            deck1.push(allCardsArray[cardNumbers[i]]);
-        }
-        // Do it again for another player
-        while (cardNumbers.length < 20) {
-            var randomnumber = Math.floor(Math.random() * 104)
-            if (cardNumbers.indexOf(randomnumber) > -1) continue;
-            cardNumbers[cardNumbers.length] = randomnumber;
-        }
-        for (var i = 0; i < cardNumbers.length; i++) {
-            deck2.push(allCardsArray[cardNumbers[i]]);
+            computerDeck.push(allCardsArray[cardNumbers[i]]);
         }
         // Create two players
-        player = new Player("Player", deck1);
-        computer = new Player("Computer", deck2);
+        player = new Player("Player", playerDeck);
+        computer = new Player("Computer", computerDeck);
 
         player.shuffle();
         computer.shuffle();
