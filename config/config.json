@@ -1,7 +1,7 @@
 {
     "development": {
       "username": "root",
-      "password": "bananazone11",
+      "password": "kole728866",
       "database": "card_game",
       "host": "127.0.0.1",
       "dialect": "mysql"
