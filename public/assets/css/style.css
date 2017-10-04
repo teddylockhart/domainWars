@@ -199,16 +199,46 @@ div.container {
 }
 
 #deckbuilder #mariofav {
-    height: 20px;
+    height: 30px;
     padding-right: 22px;
 }
 
 #deckbuilder #disneyfav {
-    height: 18px;
-    padding-right: 22px;
+    height: 30px;
+    padding-right: 16px;
 }
 
 #deckbuilder #pokefav {
-    height: 20px;
+    height: 30px;
     padding-right: 22px;
+}
+
+#deckbuilder #avatarfav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder #rmfav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder #atfav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder #lolfav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder #fefav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder b {
+    font-size: 15px;
+    padding-top: 4px;
 }
