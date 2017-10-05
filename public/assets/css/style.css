@@ -152,6 +152,7 @@ body {
 .played {
     height: 90%;
     box-shadow:0px 0px 30px;
+    border-radius: 44px;
 }
 
 /* INDEX PAGE STYLING */
