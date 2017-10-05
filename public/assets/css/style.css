@@ -163,12 +163,6 @@ div.container {
 }
 
 /* DECKBUILDER PAGE STYLING */
-@media screen and (min-width: 1200px) {
-    #deckbuilder .collapsible-body {
-        background-color: blue;
-    }
-}
-
 #deckbuilder .collapsible-body {
     background-color: #dddbd6;
     color: black;
