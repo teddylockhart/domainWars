@@ -5,10 +5,7 @@
 #computercard0,
 #computercard1,
 #computercard2 {
-    /* width:150px;
-    height:210px; */
     height:31vh;
-    /* padding-bottom:45px; */
 }
 
 #rulesBox {
@@ -65,12 +62,12 @@ body {
 .noMarg {
     margin:0;
     padding:0;
+    height: 30%;
 }
 
 #battleBoxPlayer,
 #battleBoxComp {
     height:30vh;
-    background-color: blueviolet;
 }
 
 .avatarButton {
@@ -84,6 +81,11 @@ body {
 .deckBox {
     background-color: rgba(255, 255, 0, 0.35);
     height:15vh;
+}
+
+#hand {
+    height: 100%;
+
 }
 
 /* INDEX PAGE STYLING */
@@ -151,12 +153,18 @@ div.container {
 
 /* DECKBUILDER PAGE STYLING */
 #deckbuilder .collapsible-body {
-    background-color: white;
+    background-color: #dddbd6;
     color: black;
+    height: 390px;
+}
+
+#deckbuilder ul.collapsible.popout {
+    margin-bottom: 75px;
 }
 
 #deckbuilder #deckChoice {
     width: 100%;
+
 }
 
 #deckbuilder #deckcontainer {
@@ -171,6 +179,7 @@ div.container {
 
 .collapsible-header {
     clear: both;
+    border: 0px;
 }
 
 #deckbuilder #deckMessage {
@@ -220,6 +229,7 @@ div.container {
     background-color: #645A96;   
 }
 
+/* Favicons */
 #deckbuilder #mariofav {
     height: 30px;
     padding-right: 22px;
