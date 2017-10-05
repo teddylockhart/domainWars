@@ -74,6 +74,18 @@ module.exports = function(app) {
         })
     })
 
+    app.get("/profile/:user", function(req, res){
+        db.Users.findOne({where: {email: req.params.user}}).then(user => {
+            res.json(user);
+        })
+    })
+
+    app.get("/gamestate/:user", function(req, res){
+        db.Gamestates.findOne({where: {owner: req.params.user}}).then(user => {
+            res.json(user);
+        })
+    })
+
     app.post("/signup", function(req, res){
 
         db.Users.findOne({ where: {email: req.body.email} }).then(user => {
@@ -84,6 +96,7 @@ module.exports = function(app) {
             else {
                 db.Users.create({
                     email: req.body.email,
+                    username: req.body.username,
                     wins: 0,
                     losses: 0
                 })
@@ -92,35 +105,28 @@ module.exports = function(app) {
         }) 
     });
 
-    app.post("/signin/:user", function(req, res){
+    app.post("/updateGamestate/", function(req, res){
+        db.Gamestates.update({ gameInProgress: req.body.gameInProgress,
+                            player: req.body.player,
+                            computer: req.body.computer}, {
+                                where: {owner: req.body.owner}
+                            }).then(user =>{
+                                res.end();
+                            });
+    });
 
-        db.Users.findOne({ where: {username: req.params.user} }).then(user => {
-            // User doesn't exists
-            if (!user) {
-                var result = {
-                    success: false,
-                    message: "User not found"
-                }
-                res.json(result);
+    app.post("/createGameState", function(req, res){
+
+        db.Gamestates.findOne({ where: {owner: req.body.email}}).then(user => {
+            if (user) {
+                res.send(false);
             }
-            // User does exist
             else {
-                // Check passwords
-                if (user.dataValues.password === req.body.password) {
-                    var result = {
-                        success: true,
-                        message: ""
-                    }
-                    userIn = true;
-                    res.json(result);
-                }
-                else {
-                    var result = {
-                        success: false,
-                        message: "Password is incorrect"
-                    }
-                    res.json(result);
-                }
+                db.Gamestates.create({
+                    owner: req.body.email,
+                    gameInProgress: false
+                });
+                res.send(true);
             }
         });
     });
@@ -160,7 +166,24 @@ module.exports = function(app) {
             }
         })
 
-    })
+    });
+
+    app.put("/player/:user/:result/:num", function(req, res){
+        if (req.params.result === "win") {
+            db.Users.update({ wins: req.params.num}, {
+                where: {email: req.params.user}
+            }).then(user =>{
+                res.end();
+            })
+        }
+        else {
+            db.Users.update({ losses: req.params.num}, {
+                where: {email: req.params.user}
+            }).then(user =>{
+                res.end();
+            })
+        }
+    });
 
     app.delete("/deletecard/:color/:number/:owner", function(req, res){
         db.Decks.destroy({where: {
