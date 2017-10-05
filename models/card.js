@@ -14,6 +14,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       image: {
         type: DataTypes.STRING
+      },
+      name: {
+        type: DataTypes.STRING
       }
     });
     return Cards;
