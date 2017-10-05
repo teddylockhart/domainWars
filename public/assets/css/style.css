@@ -5,23 +5,22 @@
 #computercard0,
 #computercard1,
 #computercard2 {
-    /* width:150px;
-    height:210px; */
-    background-color:red;
-    /* padding:5px; */
-    border: solid 1px white;
-    min-height:186px;
+    height:31vh;
 }
 
 #rulesBox {
     background-color: green;
-    height:100vh;
+    height:90vh;
+}
+
+nav {
+    height: 8vh;
+    line-height:8vh;
 }
 
 .nav-wrapper {
     background-color:black;
     color:white;
-    margin-bottom: 4px;
 }
 
 .navHov:hover {
@@ -37,16 +36,7 @@
    position:relative;
 }
 
-.clearfix::after {
-    content: "";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
 body {
-    height:100%;
     /* NEED FOR KOLE ARENA */
     /* overflow: hidden; */
     background-image: url("../images/darkgrey.jpg");    
@@ -56,14 +46,28 @@ body {
     background-position: center; 
 }
 
+#introArena {
+    margin-top:30px;
+    font-size: 40px;
+    color:black;
+    background-color:#DDDBD6;
+    border-radius:5px;
+    height: 100%;
+    padding: 14.5px;
+}
+#gameBox {
+    height: 92vh;
+}
+
 .noMarg {
     margin:0;
     padding:0;
+    height: 30%;
 }
 
 #battleBoxPlayer,
 #battleBoxComp {
-    height:186px;
+    height:30vh;
 }
 
 .avatarButton {
@@ -76,13 +80,22 @@ body {
 }
 .deckBox {
     background-color: rgba(255, 255, 0, 0.35);
-    border:solid 1px white;
-    height:93px;
+    height:15vh;
 }
 
-/* JASMINE */
+#hand {
+    height: 100%;
+
+}
+
+/* INDEX PAGE STYLING */
 .card-panel {
     background-color: rgba(255, 255, 255, 0.85);
+}
+
+#switchToSignIn:hover,
+#switchToSignUp:hover {
+    cursor: pointer;
 }
 
 #signIn,
@@ -101,26 +114,12 @@ div.container {
     margin: 0 auto;
 }
 
-/* Div containing the submit button and login link */
-.center-btn {
-    text-align: center;
-}
-
 .btn waves-effect waves-light {
     margin-right: 10px;
 }
 
-a {
+#a {
     margin-left: 10px;
-}
-
-nav .nav-wrapper {
-    background-color:black;
-    color:white;
-}
-
-div.container {
-    margin-top: 50px;
 }
 
 .deckCard {
@@ -152,12 +151,126 @@ div.container {
     width: 100%;
 }
 
-/* DECKBUILDER STYLING */
+/* DECKBUILDER PAGE STYLING */
 #deckbuilder .collapsible-body {
-    background-color: black;
-    color: white;
+    background-color: #dddbd6;
+    color: black;
+    height: 390px;
+}
+
+#deckbuilder ul.collapsible.popout {
+    margin-bottom: 75px;
 }
 
 #deckbuilder #deckChoice {
-    width: 50px;
+    width: 100%;
+
+}
+
+#deckbuilder #deckcontainer {
+    min-height: 270px;
+}
+
+.deck {
+    width: 12%;
+    margin: 1%;
+    float: left;
+}
+
+.collapsible-header {
+    clear: both;
+    border: 0px;
+}
+
+#deckbuilder #deckMessage {
+    text-align: center;
+    font-size: 28px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* Nintendo */
+#deckbuilder #coll1 {
+    background-color: #981b1F;   
+}
+
+/* Disney */
+#deckbuilder #coll2 {
+    background-color: #9E9E9E;   
+}
+
+/* Pokemon */
+#deckbuilder #coll3 {
+    background-color: #445781;   
+}
+
+/* Avatar */
+#deckbuilder #coll4 {
+    background-color: #B2956D;   
+}
+
+/* Rick & Morty */
+#deckbuilder #coll5 {
+    background-color: #8CA98A;   
+}
+
+/* Adventure Time */
+#deckbuilder #coll6 {
+    background-color: #F47C25;   
+}
+
+/* League of Legends */
+#deckbuilder #coll7 {
+    background-color: #D1D25D;   
+}
+
+/* Fire Emblem */
+#deckbuilder #coll8 {
+    background-color: #645A96;   
+}
+
+/* Favicons */
+#deckbuilder #mariofav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder #disneyfav {
+    height: 30px;
+    padding-right: 16px;
+}
+
+#deckbuilder #pokefav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder #avatarfav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder #rmfav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder #atfav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder #lolfav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder #fefav {
+    height: 30px;
+    padding-right: 22px;
+}
+
+#deckbuilder b {
+    font-size: 15px;
+    padding-top: 4px;
 }
