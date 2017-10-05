@@ -7,6 +7,8 @@
 #computercard2 {
     display: inline-block;
     height:31vh;
+    display:inline-block;
+    padding-top:15px;
 }
 
 #resultMessage {
@@ -45,6 +47,7 @@ nav {
 .nav-wrapper {
     background-color:black;
     color:white;
+    margin-bottom:12px;
 }
 
 .navHov:hover {
@@ -75,7 +78,6 @@ body {
     font-size: 40px;
     color:black;
     background-color:#DDDBD6;
-    border-radius:5px;
     height: 100%;
     padding: 14.5px;
 }
@@ -98,7 +100,10 @@ body {
 #battleBoxPlayer,
 #battleBoxComp {
     height:30vh;
-    display: inline-block;
+    color: #DDDBD6;
+    font-size: 30px;
+    display:inline-block;
+    padding-top:15px;
 }
 
 .avatarButton {
@@ -107,12 +112,36 @@ body {
     padding:2px;
     font-size:12px;
     margin:5px;
-
 }
+
+#compDeck,
+#playerDeck {
+    background-image: url("../images/deckBack.jpg");
+    background-repeat: no-repeat;
+    background-size: 67.5%;
+    /* background-attachment: fixed; */
+    background-position: center;
+}
+
+#playerDeckNum,
+#playerDiscardNum,
+#compDiscardNum,
+#compDeckNum {
+    color:white;
+    font-size: 10px;
+}
+
 .deckBox {
     /* background-color: rgba(255, 255, 0, 0.35); */
-    height:15vh;
-    float: left;
+    height:12vh;
+    display:inline-block;
+    padding-top:15px;
+}
+
+#discard {
+    height:90%;
+    filter: grayscale(80%);
+    opacity:0.7;
 }
 
 .hand {
@@ -212,6 +241,11 @@ div.container {
     margin: 1%;
     /* to keep individual cards centered */
     display: inline-block;
+}
+
+.card-panel {
+    padding-bottom: 0;
+    padding-right:0;
 }
 
 .collapsible-header {
