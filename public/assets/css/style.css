@@ -5,12 +5,36 @@
 #computercard0,
 #computercard1,
 #computercard2 {
+    display: inline-block;
     height:31vh;
+}
+
+#resultMessage {
+    font-size: 24px;
+    color: white;
 }
 
 #rulesBox {
     background-color: green;
     height:90vh;
+}
+
+#centerBox {
+    height: 30vh;
+    position: relative;
+    display: inline-block;
+}
+
+#roundUp {
+    position: absolute;
+    bottom: 10%;
+    right: 13.2%;
+}
+
+#modalButton {
+    position: absolute;
+    bottom: 10%;
+    right: 21.2%;
 }
 
 nav {
@@ -74,6 +98,7 @@ body {
 #battleBoxPlayer,
 #battleBoxComp {
     height:30vh;
+    display: inline-block;
 }
 
 .avatarButton {
@@ -90,7 +115,7 @@ body {
     float: left;
 }
 
-#hand {
+.hand {
     height: 90%;
 }
 

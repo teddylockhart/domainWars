@@ -32,24 +32,9 @@
     </div>
 </div>
 
-<div id="outroArena">
-    <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <span id="endMessage">stuff</span>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" id="startOver" class="modal-action modal-close waves-effect waves-green btn-flat">Start Over</a>
-        </div>
-    </div>
-</div>
-
 <div id="gameArena" class="row noMarg">
     <div id="rulesBox" class="col s3 m3 l3">
-        Rules: <button id="testBtn">Test</button>
+        Rules:
         <br>
     </div>
     <div id="gamebox" class="col s9 m9 l9">
@@ -76,13 +61,25 @@
             <div class="col s8 m8 l8">
                 <div class="row noMarg">
                     <div id="battleBoxPlayer" class="col s4 m4 l4 center-align valign-wrapper">
-                        battle
+                        
                     </div>
-                    <div class="col s4 m4 l4 valign-wrapper">
-                        <a id="roundUp" class="waves-effect waves-light btn">Fight</a>
+                    <div id="centerBox" class="col s4 m4 l4 center-align valign-wrapper">
+                        <p id="resultMessage"></p>
+                        <a id="roundUp" class="waves-effect waves-light btn">Next Round</a>
+                        <!-- Modal Trigger -->
+                        <a id="modalButton" class="waves-effect waves-light btn modal-trigger" href="#modal1">Results</a>
+                        <!-- Modal Structure -->
+                        <div id="modal1" class="modal">
+                            <div class="modal-content">
+                                <span id="endMessage"></span>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/arena" id="startOver" class="modal-action modal-close waves-effect waves-green btn-flat">Start Over</a>
+                            </div>
+                        </div>
                     </div>
                     <div id="battleBoxComp" class="col s4 m4 l4 center-align valign-wrapper">
-                        battle
+                        
                     </div>
                 </div>
             </div>
