@@ -5,12 +5,38 @@
 #computercard0,
 #computercard1,
 #computercard2 {
+    display: inline-block;
     height:31vh;
+    display:inline-block;
+    padding-top:15px;
+}
+
+#resultMessage {
+    font-size: 24px;
+    color: white;
 }
 
 #rulesBox {
     background-color: green;
     height:90vh;
+}
+
+#centerBox {
+    height: 30vh;
+    position: relative;
+    display: inline-block;
+}
+
+#roundUp {
+    position: absolute;
+    bottom: 10%;
+    right: 13.2%;
+}
+
+#modalButton {
+    position: absolute;
+    bottom: 10%;
+    right: 21.2%;
 }
 
 nav {
@@ -21,6 +47,7 @@ nav {
 .nav-wrapper {
     background-color:black;
     color:white;
+    margin-bottom:12px;
 }
 
 .navHov:hover {
@@ -51,10 +78,10 @@ body {
     font-size: 40px;
     color:black;
     background-color:#DDDBD6;
-    border-radius:5px;
     height: 100%;
     padding: 14.5px;
 }
+
 #gameBox {
     height: 92vh;
 }
@@ -65,9 +92,18 @@ body {
     height: 30%;
 }
 
+.noMarg1 {
+    margin: 10px 0;
+    padding:0;
+}
+
 #battleBoxPlayer,
 #battleBoxComp {
     height:30vh;
+    color: #DDDBD6;
+    font-size: 30px;
+    display:inline-block;
+    padding-top:15px;
 }
 
 .avatarButton {
@@ -76,16 +112,40 @@ body {
     padding:2px;
     font-size:12px;
     margin:5px;
-
 }
+
+#compDeck,
+#playerDeck {
+    background-image: url("../images/deckBack.jpg");
+    background-repeat: no-repeat;
+    background-size: 67.5%;
+    /* background-attachment: fixed; */
+    background-position: center;
+}
+
+#playerDeckNum,
+#playerDiscardNum,
+#compDiscardNum,
+#compDeckNum {
+    color:white;
+    font-size: 10px;
+}
+
 .deckBox {
-    background-color: rgba(255, 255, 0, 0.35);
-    height:15vh;
+    /* background-color: rgba(255, 255, 0, 0.35); */
+    height:12vh;
+    display:inline-block;
+    padding-top:15px;
 }
 
-#hand {
-    height: 100%;
+#discard {
+    height:90%;
+    filter: grayscale(80%);
+    opacity:0.7;
+}
 
+.hand {
+    height: 90%;
 }
 
 /* INDEX PAGE STYLING */
@@ -102,6 +162,11 @@ body {
 #signUp {
     width: 400px;
     margin: 0 auto;
+}
+
+#signInEmail,
+#signInPass {
+    margin-top:10px;
 }
 
 input#name.validate,
@@ -155,7 +220,8 @@ div.container {
 #deckbuilder .collapsible-body {
     background-color: #dddbd6;
     color: black;
-    height: 390px;
+    /* overflow: hidden; */
+    text-align: center;
 }
 
 #deckbuilder ul.collapsible.popout {
@@ -164,17 +230,22 @@ div.container {
 
 #deckbuilder #deckChoice {
     width: 100%;
-
 }
 
 #deckbuilder #deckcontainer {
-    min-height: 270px;
+    min-height: 210px;
 }
 
 .deck {
-    width: 12%;
+    width: 11%;
     margin: 1%;
-    float: left;
+    /* to keep individual cards centered */
+    display: inline-block;
+}
+
+.profile {
+    padding-bottom: 0;
+    padding-right:0;
 }
 
 .collapsible-header {
@@ -226,7 +297,7 @@ div.container {
 
 /* Fire Emblem */
 #deckbuilder #coll8 {
-    background-color: #645A96;   
+    background-color: #4b3b9c;   
 }
 
 /* Favicons */

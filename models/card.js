@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var Card = sequelize.define("Cards", {
+    var Cards = sequelize.define("Cards", {
       color: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -14,7 +14,11 @@ module.exports = function(sequelize, DataTypes) {
       },
       image: {
         type: DataTypes.STRING
+      },
+      name: {
+        type: DataTypes.STRING
       }
-    });
-    return Card;
+    }, {timestamps: false}
+  );
+    return Cards;
 };

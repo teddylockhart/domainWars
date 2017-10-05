@@ -2,19 +2,22 @@
   "name": "project2",
   "version": "1.0.0",
   "description": "",
-  "main": "test.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
     "express": "^4.16.1",
     "express-handlebars": "^3.0.0",
     "method-override": "^2.3.10",
+    "mocha": "^4.0.0",
     "mysql": "^2.14.1",
     "mysql2": "^1.4.2",
+    "request": "^2.83.0",
     "sequelize": "^4.11.5"
   }
 }

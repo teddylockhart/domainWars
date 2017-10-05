@@ -14,12 +14,13 @@ $(document).ready(function () {
     var allCardsArray = [];
     var player, computer, currentUser;
     var waiting;
+    var game;
 
     $("#signIn").hide();
     $("#roundUp").hide();
-    $("#outroArena").hide();
-    // $("#introArena").hide();
+    $("#introArena").hide();
     $("#gameArena").hide();
+    $("#modalButton").hide();
    
     $('.modal').modal({
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -35,12 +36,12 @@ $(document).ready(function () {
       }
     );
 
-    function Player(name, deck) {
+    function Player(name, deck, hand, last, discard) {
         this.name = name;
         this.deck = deck;
-        this.hand = [];
-        this.last = {};
-        this.discard = [];
+        this.hand = hand;
+        this.last = last;
+        this.discard = discard;
         this.cardCount = this.deck.length;
         this.shuffle = function () {
             var currentIndex = this.deck.length, temporaryValue, randomIndex;
@@ -96,8 +97,11 @@ $(document).ready(function () {
         $("#roundUp").hide();
         $("#battleBoxPlayer").html("");
         $("#battleBoxComp").html("");
-        $("#playerDiscard").html("<img id='hand' src='"+player.last.image+"'>");
-        $("#compDiscard").html("<img id='hand' src='"+computer.last.image+"'>");
+
+        $("#playerDiscard").html("<img class='hand' src='"+player.last.image+"'>" + "<h5>"+(player.discard.length + 1)+"</h5>");
+        $("#compDiscard").html("<img class='hand' src='"+computer.last.image+"'>");
+        $("#resultMessage").html("");
+
         updateCards();
 
         waiting = false;
@@ -115,12 +119,6 @@ $(document).ready(function () {
         });
     })
 
-    $("#start").on("click", function () {
-        $.post("/deckbuilder", function (data) {
-
-        });
-    });
-
     $("#play").on("click", function(){
         var playerDeck = [];
         $.get("/deck/"+firebase.auth().currentUser.email, function(data){
@@ -134,6 +132,7 @@ $(document).ready(function () {
                 }
                 $("#gameArena").show();
                 $("#introArena").hide();
+                game = true;
                 $.get("/allcards", function (data) {
                     allCardsArray = data;
                     setUpPlayers(playerDeck);
@@ -159,7 +158,7 @@ $(document).ready(function () {
             //  Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            $(".errorMsg").html(errorMessage);
+            $(".errMsg").html(errorMessage);
             $("#signInEmail, #signInPass").val("");
         });
 
@@ -170,11 +169,11 @@ $(document).ready(function () {
         event.preventDefault();
 
         var email = $("#signUpEmail").val().trim();
-        currentUser = $("#signUpName").val().trim();
+        var username = $("#signUpName").val().trim();
         var password = $("#signUpPass").val().trim();
         var checkPass = $("#passwordConfirm").val().trim();
 
-        if (currentUser === "") {
+        if (username === "") {
             $(".errMsg").html("Please enter a user name");
             $("#signUpPass, #passwordConfirm").val("");
         }
@@ -192,10 +191,14 @@ $(document).ready(function () {
                 // Set users display name
                 var user = firebase.auth().currentUser;
                 user.updateProfile({
-                    displayName: currentUser
+                    displayName: username
                 }).catch(function (error) { });
 
-                $.post("/signup", { email: email }, function () {
+                $.post("/signup", { email: email, username: username }, function(data) {
+
+                })
+
+                $.post("/createGameState", { email: email }, function(data){
 
                 })
 
@@ -245,32 +248,56 @@ $(document).ready(function () {
             var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number,
                 parseInt(compCard.color.charAt(0)), compCard.number);
 
-            $("#battleBoxPlayer").html("<img id='hand' src='"+player.hand[num].image+"'>");
-            $("#battleBoxComp").html("<img id='hand' src='"+compCard.image+"'>");
+            $("#battleBoxPlayer").html("<img class='hand' src='"+player.hand[num].image+"'>");
+            $("#battleBoxComp").html("<img class='hand' src='"+compCard.image+"'>");
+            $("#hand"+num).hide();
+
+            $("#comphand"+compChoice).hide();
+
             $("#roundUp").show();
 
             // Depending on outcome, call proper playCard functions on each player
             switch (outcome) {
                 case "win":
+                    $("#resultMessage").html(player.hand[num].name+" defeats "+compCard.name);
                     player.playCard(num, false);
                     computer.playCard(compChoice, true);
                     break;
                 case "lose":
+                    $("#resultMessage").html(compCard.name+" defeats "+player.hand[num].name);
                     player.playCard(num, true);
                     computer.playCard(compChoice, false);
                     break;
                 case "draw":
-                    player.playCard(num, false);
-                    computer.playCard(compChoice, false);
+                    $("#resultMessage").html("Draw!");
+                    player.playCard(num, true);
+                    computer.playCard(compChoice, true);
                     break;
             }
+            // Check for game over
+            if (player.cardCount === 0 || computer.cardCount === 0){
+                gameOver(player.cardCount, computer.cardCount);
+                game = false;
+            }
+            else {
+                // Each player draws another card
+                player.drawCard();
+                computer.drawCard();
+            }
+            
+            var gameState = {
+                owner: firebase.auth().currentUser.email,
+                gameInProgress: game,
+                player: JSON.stringify(player),
+                computer: JSON.stringify(computer) 
+            }
 
-            // Each player draws another card
-            player.drawCard();
-            computer.drawCard();
-            console.log(player);
-            console.log(computer);
+            $.post("/updateGamestate", gameState, function(data){
 
+            });
+            console.log(outcome);
+            console.log(player.cardCount);
+            console.log(computer.cardCount);
             waiting = true;
         }
     })
@@ -317,8 +344,8 @@ $(document).ready(function () {
                 break;
             // Closest to 7 wins
             case 0:
-                var distToSeven_one = Math.abs(6 - num_one);
-                var distToSeven_two = Math.abs(6 - num_two);
+                var distToSeven_one = Math.abs(7 - num_one);
+                var distToSeven_two = Math.abs(7 - num_two);
                 if (distToSeven_one === distToSeven_two) {
                     return "draw";
                 }
@@ -330,8 +357,8 @@ $(document).ready(function () {
                 }
             // Furthest from 7 wins
             case 4:
-                var distToSeven_one = Math.abs(6 - num_one);
-                var distToSeven_two = Math.abs(6 - num_two);
+                var distToSeven_one = Math.abs(7 - num_one);
+                var distToSeven_two = Math.abs(7 - num_two);
                 if (distToSeven_one === distToSeven_two) {
                     return "draw";
                 }
@@ -344,21 +371,68 @@ $(document).ready(function () {
         }
     }
 
+    function gameOver(cardsLeft, compCardsLeft) {
+        // Modal trigger
+        $("#roundUp").hide();
+        $("#modalButton").show();
+        $.get("/profile/"+firebase.auth().currentUser.email, function(data){
+            // If the player wins
+            if (cardsLeft > 0) {
+                $("#endMessage").html("You have won! Congratulations, keep up the good work.");
+                var newWins = data.wins + 1;
+                console.log("Win " + newWins);
+                $.ajax({
+                    method: "PUT",
+                    url: "/player/" + firebase.auth().currentUser.email + "/win/" + newWins,
+                    success: function (data) {},
+                    complete: function (data) {}
+                });
+            }
+            // If the player lost
+            else if (compCardsLeft > 0) {
+                $("#endMessage").html("You have been defeated! Better luck next time.");
+                var newLosses = data.losses + 1;
+                console.log("Loss " + newLosses);
+                $.ajax({
+                    method: "PUT",
+                    url: "/player/" + firebase.auth().currentUser.email + "/lose/" + newLosses,
+                    success: function (data) {},
+                    complete: function (data) {}
+                });
+            }
+            // If it was a draw
+            else {
+                $("#endMessage").html("The game has ended in a draw. Your win/loss record is not " +
+                 "affected.");
+            }
+        })
+    }
+
     function updateCards() {
         for (var i = 0; i < 3; i++) {
             if (player.cardCount > i) {
-                $("#playercard" + i).html("<img id='hand' src='"+player.hand[i].image+"'>");
+
+                $("#playercard" + i).html("<img class='hand' id='hand" + i + "' src='"+player.hand[i].image+"'>");
+
             }
             else {
-                $("#playercard" + i).html("No card left");
+                $("#playercard" + i).hide();
             }
             if (computer.cardCount > i) {
-                $("#computercard" + i).html("<img id='hand' src='"+computer.hand[i].image+"'>");
+
+                $("#computercard" + i).html("<img class='hand' id='comphand" + i + "' src='"+computer.hand[i].image+"'>");
+
             }
             else {
-                $("#computercard" + i).html("No card left");
+                $("#computercard" + i).hide();
             }
         }
+        $("#playerDiscard").html("<img id='discard' src='"+player.last.image+"'>");
+        $("#playerDeckNum").html("Deck: "+ player.deck.length);
+        $("#playerDiscardNum").html("Discard: "+ player.discard.length);
+        $("#compDeckNum").html("Deck: "+ computer.deck.length);
+        $("#compDiscardNum").html("Discard: "+ computer.discard.length);
+        $("#compDiscard").html("<img id='discard' src='"+computer.last.image+"'>");
     }
 
     function setUpPlayers(playerDeck) {
@@ -375,8 +449,8 @@ $(document).ready(function () {
             computerDeck.push(allCardsArray[cardNumbers[i]]);
         }
         // Create two players
-        player = new Player("Player", playerDeck);
-        computer = new Player("Computer", computerDeck);
+        player = new Player("Player", playerDeck, [], {}, []);
+        computer = new Player("Computer", computerDeck, [], {}, []);
 
         player.shuffle();
         computer.shuffle();
@@ -387,6 +461,37 @@ $(document).ready(function () {
         computer.drawCard();
         computer.drawCard();
         computer.drawCard();
+    }
+
+    function updateGamestate(){
+        $.get("/gamestate/"+firebase.auth().currentUser.email, function(data){
+            if(data.player) {
+                var tempplayer = JSON.parse(data.player);
+
+                player = new Player(tempplayer.name, tempplayer.deck, tempplayer.hand, 
+                    tempplayer.last, tempplayer.discard);
+                player.cardCount = tempplayer.cardCount;
+            }
+            if(data.computer) {
+                var tempcomputer = JSON.parse(data.computer);
+
+                computer = new Player(tempcomputer.name, tempcomputer.deck, tempcomputer.hand, 
+                    tempcomputer.last, tempcomputer.discard);
+                computer.cardCount = tempcomputer.cardCount;
+            }
+            
+            game = data.gameInProgress;
+
+            if (game) {
+                $("#introArena").hide();
+                $("#gameArena").show();
+                updateCards();
+            }
+            else {
+                $("#introArena").show();
+                $("#gameArena").hide();
+            }
+        })
     }
 
     function updateDeck() {
@@ -410,6 +515,13 @@ $(document).ready(function () {
         })
     }
 
+    function updateProfile() {
+        $.get("/profile/"+firebase.auth().currentUser.email, function(data){
+            $("#profileName").html(data.username);
+            $("#profileWins").html("Wins: " + data.wins); 
+            $("#profileLosses").html("Losses: " + data.losses); 
+        })    
+    }
 
     $(".deckCard").on("click", function() {
         var number = parseInt($(this).attr("datacardnum"));
@@ -439,7 +551,8 @@ $(document).ready(function () {
             number: $(this).attr("datanum"),
             image: $(this).attr("dataimg"),
             owner: firebase.auth().currentUser.email,
-            cardNumber: number
+            cardNumber: number,
+            name: $(this).attr("dataname")
         }
 
         $.post("/addcard", card, function(data){
@@ -452,9 +565,9 @@ $(document).ready(function () {
     firebase.auth().onAuthStateChanged(function (user) {
 
         if (user) {
-            if (!currentUser) { currentUser = user.displayName; }
-
+            updateProfile();
             updateDeck();
+            updateGamestate();
         } else {
             if (window.location.pathname != "/") {
                 window.location.assign("/");
@@ -462,3 +575,4 @@ $(document).ready(function () {
         }
     });
 });
+

@@ -20,42 +20,17 @@
 
 <div id="introArena" class="container">
     <div class="row">
-        {{!-- <div class="col s4 m4 l4"></div> --}}
         <div class="col s12 m12 l12 valign-wrapper center-align">
             <div>
                 <h1>Welcome to the Arena, click play to get started</h1>
-                
                 <br>
                 <span id="introMessage"></span>
                 <br>
-                
-
                 <button id="play" class="waves-effect waves-light btn-large">Play</button>
-                <span id="introMessage">Hello</span>
             </div>
         </div>
-        {{!-- <div class="col s4 m4 l4"></div> --}}
     </div>
 </div>
-
-
-
-<div id="outroArena">
-    <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <span id="endMessage">stuff</span>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" id="startOver" class="modal-action modal-close waves-effect waves-green btn-flat">Start Over</a>
-        </div>
-    </div>
-</div>
-
-
 
 <div id="gameArena" class="row noMarg">
     <div id="rulesBox" class="col s3 m3 l3">
@@ -66,8 +41,14 @@
 
         <div class="row noMarg">
             <div class="col s2 m2 l2">
-                <div class="deckBox">Deck</div>
-                <div id="compDiscard" class="deckBox">Discard</div>
+                <div class="row">
+                    <div id="compDeck" class="col s6 m6 l6 deckBox"></div>
+                    <div id="compDeckNum" class="col s6 m6 l6 deckBox"></div>
+                </div>
+                <div class="row">
+                    <div id="compDiscard" class="col s6 m6 l6 deckBox"></div>
+                    <div id="compDiscardNum" class="col s6 m6 l6 deckBox"></div>
+                </div>
             </div>
             <div class="col s8 m8 l8">
                 <div class="row noMarg">
@@ -82,16 +63,31 @@
         </div>
 
         <div class="row noMarg">
-            <div id="battleBoxPlayer" class="col s5 m5 l5 center-align valign-wrapper z-depth-2">
-                battle
+            <div class="col s2 m2 l2"></div>
+            <div class="col s8 m8 l8">
+                <div class="row noMarg">
+                    <div id="battleBoxPlayer" class="col s4 m4 l4 center-align valign-wrapper"></div>
+                    <div id="centerBox" class="col s4 m4 l4 center-align valign-wrapper">
+                        <p id="resultMessage"> Pick a card to start the battle!!</p>
+                        <a id="roundUp" class="waves-effect waves-light btn">Next Round</a>
+                        <!-- Modal Trigger -->
+                        <a id="modalButton" class="waves-effect waves-light btn modal-trigger" href="#modal1">Results</a>
+                        <!-- Modal Structure -->
+                        <div id="modal1" class="modal">
+                            <div class="modal-content">
+                                <span id="endMessage"></span>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/arena" id="startOver" class="modal-action modal-close waves-effect waves-green btn-flat">Start Over</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="battleBoxComp" class="col s4 m4 l4 center-align valign-wrapper">
+                        
+                    </div>
+                </div>
             </div>
-            <div class="col s2 m2 l2">
-                <a id="roundUp" class="waves-effect waves-light btn">Fight</a>
-            </div>
-            <div id="battleBoxComp" class="col s5 m5 l5 center-align valign-wrapper z-depth-2">
-                battle
-
-            </div>
+            <div class="col s2 m2 l2"></div>
         </div>
 
         <div class="row noMarg">
@@ -100,14 +96,20 @@
             </div>
             <div class="col s8 m8 l8">
                 <div class="row noMarg">
-                    <div id="playercard0" data=0 class="col s4 m4 l4 playercard center-align valign-wrapper z-depth-1"></div>
-                    <div id="playercard1" data=1 class="col s4 m4 l4 playercard center-align valign-wrapper z-depth-1"></div>
-                    <div id="playercard2" data=2 class="col s4 m4 l4 playercard center-align valign-wrapper z-depth-1"></div>
+                    <div id="playercard0" data=0 class="col s4 m4 l4 playercard center-align valign-wrapper"></div>
+                    <div id="playercard1" data=1 class="col s4 m4 l4 playercard center-align valign-wrapper"></div>
+                    <div id="playercard2" data=2 class="col s4 m4 l4 playercard center-align valign-wrapper"></div>
                 </div>
             </div>
             <div class="col s2 m2 l2">
-                <div class="deckBox">Deck</div>
-                <div id="playerDiscard" class="deckBox">Discard</div>
+                <div class="row">
+                    <div id="playerDeck" class="col s6 m6 l6 deckBox"></div>
+                    <div id="playerDeckNum" class="col s6 m6 l6 deckBox"></div>
+                </div>
+                <div class="row">
+                    <div id="playerDiscard" class="col s6 m6 l6 deckBox"></div>
+                    <div id="playerDiscardNum" class="col s6 m6 l6 deckBox"></div>
+                </div>
             </div>
         </div>
     </div>
