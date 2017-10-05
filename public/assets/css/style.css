@@ -147,12 +147,13 @@ body {
 .hand {
     height: 90%;
     box-shadow:10px 20px 30px;
+    border-radius: 7px;
 }
 
 .played {
     height: 90%;
     box-shadow:0px 0px 30px;
-    border-radius: 44px;
+    border-radius: 7px;
 }
 
 /* INDEX PAGE STYLING */
