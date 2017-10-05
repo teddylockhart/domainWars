@@ -19,6 +19,7 @@ module.exports = function(sequelize, DataTypes) {
       name: {
         type: DataTypes.STRING
       }
+
     },{timestamps: false});
     return Cards;
 };
