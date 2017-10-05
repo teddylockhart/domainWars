@@ -19,8 +19,8 @@ $(document).ready(function () {
     $("#signIn").hide();
     $("#roundUp").hide();
     $("#introArena").hide();
-    $("#outroArena").hide();
     $("#gameArena").hide();
+    $("#modalButton").hide();
    
     $('.modal').modal({
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -93,14 +93,14 @@ $(document).ready(function () {
         }
     }
 
-    $("#testBtn").on("click", simulateGame);
-
     $("#roundUp").on("click", function () {
         $("#roundUp").hide();
         $("#battleBoxPlayer").html("");
         $("#battleBoxComp").html("");
-        $("#playerDiscard").html("<img id='hand' src='"+player.last.image+"'>" + "<h5>"+(player.discard.length + 1)+"</h5>");
-        $("#compDiscard").html("<img id='hand' src='"+computer.last.image+"'>");
+
+        $("#playerDiscard").html("<img class='hand' src='"+player.last.image+"'>" + "<h5>"+(player.discard.length + 1)+"</h5>");
+        $("#compDiscard").html("<img class='hand' src='"+computer.last.image+"'>");
+        $("#resultMessage").html("");
 
         updateCards();
 
@@ -118,12 +118,6 @@ $(document).ready(function () {
             }
         });
     })
-
-    $("#start").on("click", function () {
-        $.post("/deckbuilder", function (data) {
-
-        });
-    });
 
     $("#play").on("click", function(){
         var playerDeck = [];
@@ -254,28 +248,35 @@ $(document).ready(function () {
             var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number,
                 parseInt(compCard.color.charAt(0)), compCard.number);
 
-            $("#battleBoxPlayer").html("<img id='hand' src='"+player.hand[num].image+"'>");
-            $("#battleBoxComp").html("<img id='hand' src='"+compCard.image+"'>");
+            $("#battleBoxPlayer").html("<img class='hand' src='"+player.hand[num].image+"'>");
+            $("#battleBoxComp").html("<img class='hand' src='"+compCard.image+"'>");
+            $("#hand"+num).hide();
+
+            $("#comphand"+compChoice).hide();
+
             $("#roundUp").show();
 
             // Depending on outcome, call proper playCard functions on each player
             switch (outcome) {
                 case "win":
+                    $("#resultMessage").html(player.hand[num].name+" defeats "+compCard.name);
                     player.playCard(num, false);
                     computer.playCard(compChoice, true);
                     break;
                 case "lose":
+                    $("#resultMessage").html(compCard.name+" defeats "+player.hand[num].name);
                     player.playCard(num, true);
                     computer.playCard(compChoice, false);
                     break;
                 case "draw":
-                    player.playCard(num, false);
-                    computer.playCard(compChoice, false);
+                    $("#resultMessage").html("Draw!");
+                    player.playCard(num, true);
+                    computer.playCard(compChoice, true);
                     break;
             }
             // Check for game over
             if (player.cardCount === 0 || computer.cardCount === 0){
-                gameOver(player.cardCount);
+                gameOver(player.cardCount, computer.cardCount);
                 game = false;
             }
             else {
@@ -300,49 +301,6 @@ $(document).ready(function () {
             waiting = true;
         }
     })
-
-    function simulateGame() {
-        while(game) {
-            var num = 0;
-            // Computer pick a random card
-            var compChoice = Math.floor(Math.random() * (computer.hand.length));
-            var compCard = computer.hand[compChoice];
-            // Outcome is decided by battle function
-            var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number,
-                parseInt(compCard.color.charAt(0)), compCard.number);
-
-            $("#battleBoxPlayer").html("<img id='hand' src='"+player.hand[num].image+"'>");
-            $("#battleBoxComp").html("<img id='hand' src='"+compCard.image+"'>");
-            $("#roundUp").show();
-
-            // Depending on outcome, call proper playCard functions on each player
-            switch (outcome) {
-                case "win":
-                    player.playCard(num, false);
-                    computer.playCard(compChoice, true);
-                    break;
-                case "lose":
-                    player.playCard(num, true);
-                    computer.playCard(compChoice, false);
-                    break;
-                case "draw":
-                    player.playCard(num, false);
-                    computer.playCard(compChoice, false);
-                    break;
-            }
-            // Check for game over
-            if (player.cardCount === 0 || computer.cardCount === 0){
-                gameOver(player.cardCount);
-            }
-            else {
-                // Each player draws another card
-                player.drawCard();
-                computer.drawCard();
-
-                updateCards();
-            }
-        }
-    }
 
     function battle(col_one, num_one, col_two, num_two) {
         switch (Math.abs(col_one - col_two)) {
@@ -386,8 +344,8 @@ $(document).ready(function () {
                 break;
             // Closest to 7 wins
             case 0:
-                var distToSeven_one = Math.abs(6 - num_one);
-                var distToSeven_two = Math.abs(6 - num_two);
+                var distToSeven_one = Math.abs(7 - num_one);
+                var distToSeven_two = Math.abs(7 - num_two);
                 if (distToSeven_one === distToSeven_two) {
                     return "draw";
                 }
@@ -399,8 +357,8 @@ $(document).ready(function () {
                 }
             // Furthest from 7 wins
             case 4:
-                var distToSeven_one = Math.abs(6 - num_one);
-                var distToSeven_two = Math.abs(6 - num_two);
+                var distToSeven_one = Math.abs(7 - num_one);
+                var distToSeven_two = Math.abs(7 - num_two);
                 if (distToSeven_one === distToSeven_two) {
                     return "draw";
                 }
@@ -413,12 +371,14 @@ $(document).ready(function () {
         }
     }
 
-    function gameOver(cardsLeft) {
+    function gameOver(cardsLeft, compCardsLeft) {
         // Modal trigger
-
+        $("#roundUp").hide();
+        $("#modalButton").show();
         $.get("/profile/"+firebase.auth().currentUser.email, function(data){
             // If the player wins
             if (cardsLeft > 0) {
+                $("#endMessage").html("You have won! Congratulations, keep up the good work.");
                 var newWins = data.wins + 1;
                 console.log("Win " + newWins);
                 $.ajax({
@@ -429,7 +389,8 @@ $(document).ready(function () {
                 });
             }
             // If the player lost
-            else {
+            else if (compCardsLeft > 0) {
+                $("#endMessage").html("You have been defeated! Better luck next time.");
                 var newLosses = data.losses + 1;
                 console.log("Loss " + newLosses);
                 $.ajax({
@@ -439,24 +400,39 @@ $(document).ready(function () {
                     complete: function (data) {}
                 });
             }
+            // If it was a draw
+            else {
+                $("#endMessage").html("The game has ended in a draw. Your win/loss record is not " +
+                 "affected.");
+            }
         })
     }
 
     function updateCards() {
         for (var i = 0; i < 3; i++) {
             if (player.cardCount > i) {
-                $("#playercard" + i).html("<img id='hand' src='"+player.hand[i].image+"'>");
+
+                $("#playercard" + i).html("<img class='hand' id='hand" + i + "' src='"+player.hand[i].image+"'>");
+
             }
             else {
                 $("#playercard" + i).hide();
             }
             if (computer.cardCount > i) {
-                $("#computercard" + i).html("<img id='hand' src='"+computer.hand[i].image+"'>");
+
+                $("#computercard" + i).html("<img class='hand' id='comphand" + i + "' src='"+computer.hand[i].image+"'>");
+
             }
             else {
                 $("#computercard" + i).hide();
             }
         }
+        $("#playerDiscard").html("<img id='discard' src='"+player.last.image+"'>");
+        $("#playerDeckNum").html("Deck: "+ player.deck.length);
+        $("#playerDiscardNum").html("Discard: "+ player.discard.length);
+        $("#compDeckNum").html("Deck: "+ computer.deck.length);
+        $("#compDiscardNum").html("Discard: "+ computer.discard.length);
+        $("#compDiscard").html("<img id='discard' src='"+computer.last.image+"'>");
     }
 
     function setUpPlayers(playerDeck) {
@@ -510,13 +486,11 @@ $(document).ready(function () {
             game = data.gameInProgress;
 
             if (game) {
-                $("#outroArena").hide();
                 $("#introArena").hide();
                 $("#gameArena").show();
                 updateCards();
             }
             else {
-                $("#outroArena").hide();
                 $("#introArena").show();
                 $("#gameArena").hide();
             }
@@ -580,7 +554,8 @@ $(document).ready(function () {
             number: $(this).attr("datanum"),
             image: $(this).attr("dataimg"),
             owner: firebase.auth().currentUser.email,
-            cardNumber: number
+            cardNumber: number,
+            name: $(this).attr("dataname")
         }
 
         $.post("/addcard", card, function(data){
@@ -603,3 +578,4 @@ $(document).ready(function () {
         }
     });
 });
+

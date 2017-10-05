@@ -20,6 +20,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       cardNumber: {
           type: DataTypes.INTEGER
+      },
+      name: {
+          type: DataTypes.STRING
       }
     });
     return Decks;
