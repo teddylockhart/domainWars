@@ -5,14 +5,38 @@
 #computercard0,
 #computercard1,
 #computercard2 {
+    display: inline-block;
     height:31vh;
     display:inline-block;
     padding-top:15px;
 }
 
+#resultMessage {
+    font-size: 24px;
+    color: white;
+}
+
 #rulesBox {
     background-color: green;
     height:90vh;
+}
+
+#centerBox {
+    height: 30vh;
+    position: relative;
+    display: inline-block;
+}
+
+#roundUp {
+    position: absolute;
+    bottom: 10%;
+    right: 13.2%;
+}
+
+#modalButton {
+    position: absolute;
+    bottom: 10%;
+    right: 21.2%;
 }
 
 nav {
@@ -193,12 +217,6 @@ div.container {
 }
 
 /* DECKBUILDER PAGE STYLING */
-@media screen and (min-width: 1200px) {
-    #deckbuilder .collapsible-body {
-        background-color: blue;
-    }
-}
-
 #deckbuilder .collapsible-body {
     background-color: #dddbd6;
     color: black;
@@ -279,7 +297,7 @@ div.container {
 
 /* Fire Emblem */
 #deckbuilder #coll8 {
-    background-color: #645A96;   
+    background-color: #4b3b9c;   
 }
 
 /* Favicons */
