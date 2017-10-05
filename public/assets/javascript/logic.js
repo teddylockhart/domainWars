@@ -245,10 +245,12 @@ $(document).ready(function () {
             // Outcome is decided by battle function
             var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number,
                 parseInt(compCard.color.charAt(0)), compCard.number);
+          
             // Put the played cards into the battle boxes
             $("#battleBoxPlayer").html("<img class='hand' src='"+player.hand[num].image+"'>");
             $("#battleBoxComp").html("<img class='hand' src='"+compCard.image+"'>");
             // Hide the played cards in the players' hands
+
             $("#hand"+num).hide();
             $("#comphand"+compChoice).hide();
             // Show the "Next Round" button
@@ -257,16 +259,22 @@ $(document).ready(function () {
             switch (outcome) {
                 case "win": // The player wins
                     $("#resultMessage").html(player.hand[num].name+" defeats "+compCard.name);
+                    $("#battleBoxComp").css("color", "red");
+                    $("#battleBoxPlayer").css("color", "white");
                     player.playCard(num, false);
                     computer.playCard(compChoice, true);
                     break;
                 case "lose": // The computer wins
                     $("#resultMessage").html(compCard.name+" defeats "+player.hand[num].name);
+                    $("#battleBoxPlayer").css("color", "red");
+                    $("#battleBoxComp").css("color", "white");
                     player.playCard(num, true);
                     computer.playCard(compChoice, false);
                     break;
                 case "draw": // It is a draw
                     $("#resultMessage").html("Draw!");
+                    $("#battleBoxComp").css("color", "red");
+                    $("#battleBoxPlayer").css("color", "red");
                     player.playCard(num, true);
                     computer.playCard(compChoice, true);
                     break;
