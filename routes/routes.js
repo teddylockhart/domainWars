@@ -29,8 +29,6 @@ module.exports = function(app) {
     });
 
     app.get("/deckbuilder", function(req, res){
-
-        createAllCards();        
        
         var cardArray1 = []; 
         var cardArray2 = []; 
