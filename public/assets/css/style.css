@@ -159,7 +159,11 @@ body {
 }
 
 #switchToSignIn:hover,
-#switchToSignUp:hover {
+#switchToSignUp:hover,
+#arenaBtn:hover,
+#logOutBtn:hover,
+#homeBtn:hover,
+#builderBtn:hover {
     cursor: pointer;
 }
 
