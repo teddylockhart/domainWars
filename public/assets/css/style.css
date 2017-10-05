@@ -5,20 +5,22 @@
 #computercard0,
 #computercard1,
 #computercard2 {
-    height:234px;
-    background-color:red;
-    border: solid 1px white;
+    height:31vh;
 }
 
 #rulesBox {
     background-color: green;
-    height:100vh;
+    height:90vh;
+}
+
+nav {
+    height: 8vh;
+    line-height:8vh;
 }
 
 .nav-wrapper {
     background-color:black;
     color:white;
-    margin-bottom: 4px;
 }
 
 .navHov:hover {
@@ -34,16 +36,7 @@
    position:relative;
 }
 
-.clearfix::after {
-    content: "";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
 body {
-    height:100%;
     /* NEED FOR KOLE ARENA */
     /* overflow: hidden; */
     background-image: url("../images/darkgrey.jpg");    
@@ -53,19 +46,18 @@ body {
     background-position: center; 
 }
 
-/* #introArena {
-    height: 300px;
-    font-size: 70px;
-    color:white;
+#introArena {
+    margin-top:30px;
+    font-size: 40px;
+    color:black;
+    background-color:#DDDBD6;
+    border-radius:5px;
+    height: 100%;
+    padding: 14.5px;
 }
-
-#play {
-    color: #353030;
-    background-color: #D6D6D6;
-    font-size: 50px;
-    
-
-} */
+#gameBox {
+    height: 92vh;
+}
 
 .noMarg {
     margin:0;
@@ -75,9 +67,7 @@ body {
 
 #battleBoxPlayer,
 #battleBoxComp {
-    height:234px;
-    /* padding-bottom:45px; */
-    background-color: blueviolet;
+    height:30vh;
 }
 
 .avatarButton {
@@ -90,12 +80,12 @@ body {
 }
 .deckBox {
     background-color: rgba(255, 255, 0, 0.35);
-    border:solid 1px white;
-    height:117px;
+    height:15vh;
 }
 
 #hand {
     height: 100%;
+
 }
 
 /* INDEX PAGE STYLING */
@@ -131,16 +121,6 @@ div.container {
 #a {
     margin-left: 10px;
 }
-
-/* .navbar-fixed {
-    background-color:black;
-    color:white;
-    margin: 0 auto;
-} */
-
-/* div.container {
-    margin-top: 50px;
-} */
 
 .deckCard {
     width: 100%;
