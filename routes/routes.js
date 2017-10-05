@@ -27,8 +27,9 @@ module.exports = function(app) {
         res.render("arena");
     });
 
-    app.get("/deckbuilder", function(req, res){        
-       
+
+    app.get("/deckbuilder", function(req, res){
+
         var cardArray1 = []; 
         var cardArray2 = []; 
         var cardArray3 = []; 
