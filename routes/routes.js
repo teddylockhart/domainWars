@@ -19,7 +19,6 @@ module.exports = function(app) {
     })
 
     app.get("/profile", function(req, res){
-
         res.render("profile");
     });
 
@@ -147,14 +146,17 @@ module.exports = function(app) {
                                     }
                 }).then(cards =>{
                     if (!cards[0]) {
-                        db.Decks.create({
-                            color: req.body.color,
-                            number: req.body.number,
-                            image: req.body.image,
-                            owner: req.body.owner,
-                            cardNumber: req.body.cardNumber
-                        });
-                        res.redirect("/deckbuilder");
+                        db.Cards.findOne({where: {id: req.body.cardNumber}}).then(card =>{
+                            db.Decks.create({
+                                color: req.body.color,
+                                number: req.body.number,
+                                image: req.body.image,
+                                owner: req.body.owner,
+                                cardNumber: req.body.cardNumber,
+                                name: card.name
+                            });
+                            res.redirect("/deckbuilder");
+                        })   
                     }
                     else {
                         res.json({success: false, message: "You already have that card"});
@@ -198,21 +200,31 @@ module.exports = function(app) {
 // Create cards numbered 1-13 for each color in the colors array
 function createAllCards() { 
     var imageSetOne = ["/assets/images/nintendo/N1.png", "/assets/images/nintendo/N2.png", "/assets/images/nintendo/N3.png", "/assets/images/nintendo/N4.png", "/assets/images/nintendo/N5.png", "/assets/images/nintendo/N6.png", "/assets/images/nintendo/N7.png", "/assets/images/nintendo/N8.png", "/assets/images/nintendo/N9.png", "/assets/images/nintendo/N10.png", "/assets/images/nintendo/N11.png", "/assets/images/nintendo/N12.png", "/assets/images/nintendo/N13.png"];
+    var nameSetOne = ["Mario", "Luigi", "Peach", "Piranha Plant", "Rosalina", "Shy Guy", "King Boo", "Magikoopa", "Goomba", "Toad", "Donkey Kong", "Wario", "Bowser"]
     var imageSetTwo = ["/assets/images/disney/d1.png", "/assets/images/disney/d2.png", "/assets/images/disney/d3.png", "/assets/images/disney/d4.png", "/assets/images/disney/d5.png", "/assets/images/disney/d6.png", "/assets/images/disney/d7.png", "/assets/images/disney/d8.png", "/assets/images/disney/d9.png", "/assets/images/disney/d10.png", "/assets/images/disney/d11.png", "/assets/images/disney/d12.png", "/assets/images/disney/d13.png"];
+    var nameSetTwo = ["Genie", "Jaffar", "Captain Hook", "Boo", "Nemo", "Peter Pan", "Simba", "Tick-Tock", "Randall", "Rattigan", "Snow White", "Ursula", "Belle"]
     var imageSetThree = ["/assets/images/pokemon/p1.png", "/assets/images/pokemon/p2.png", "/assets/images/pokemon/p3.png", "/assets/images/pokemon/p4.png", "/assets/images/pokemon/p5.png", "/assets/images/pokemon/p6.png", "/assets/images/pokemon/p7.png", "/assets/images/pokemon/p8.png", "/assets/images/pokemon/p9.png", "/assets/images/pokemon/p10.png", "/assets/images/pokemon/p11.png", "/assets/images/pokemon/p12.png", "/assets/images/pokemon/p13.png"];
+    var nameSetThree = ["Absol", "Celebi", "Froakie", "Latias", "Lucario", "Pikachu", "Politoed", "Snorlax", "Spheal", "Vespiquen", "Volcarona", "Whimsicott", "Xerneas"]
     var imageSetFour = ["/assets/images/lastAirbender/la1.png", "/assets/images/lastAirbender/la2.png", "/assets/images/lastAirbender/la3.png", "/assets/images/lastAirbender/la4.png", "/assets/images/lastAirbender/la5.png", "/assets/images/lastAirbender/la6.png", "/assets/images/lastAirbender/la7.png", "/assets/images/lastAirbender/la8.png", "/assets/images/lastAirbender/la9.png", "/assets/images/lastAirbender/la10.png", "/assets/images/lastAirbender/la11.png", "/assets/images/lastAirbender/la12.png", "/assets/images/lastAirbender/la13.png"];
+    var nameSetFour = ["Cabbage Man", "Aang", "Appa", "Azula", "Iroh", "Katara", "Momo", "Ozai", "Sokka", "Suki", "Mai & Ty Lee", "Toph", "Zuko"]
     var imageSetFive = ["/assets/images/rick&morty/rm1.png", "/assets/images/rick&morty/rm2.png", "/assets/images/rick&morty/rm3.png", "/assets/images/rick&morty/rm4.png", "/assets/images/rick&morty/rm5.png", "/assets/images/rick&morty/rm6.png", "/assets/images/rick&morty/rm7.png", "/assets/images/rick&morty/rm8.png", "/assets/images/rick&morty/rm9.png", "/assets/images/rick&morty/rm10.png", "/assets/images/rick&morty/rm11.png", "/assets/images/rick&morty/rm12.png", "/assets/images/rick&morty/rm13.png"];
+    var nameSetFive = []
     var imageSetSix = ["/assets/images/adventureTime/at1.png", "/assets/images/adventureTime/at2.png", "/assets/images/adventureTime/at3.png", "/assets/images/adventureTime/at4.png", "/assets/images/adventureTime/at5.png", "/assets/images/adventureTime/at6.png", "/assets/images/adventureTime/at7.png", "/assets/images/adventureTime/at8.png", "/assets/images/adventureTime/at9.png", "/assets/images/adventureTime/at10.png", "/assets/images/adventureTime/at11.png", "/assets/images/adventureTime/at12.png", "/assets/images/adventureTime/at13.png"];
-    var imageSetSeven = ["/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png"];
-    var imageSetEight = ["/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png", "/assets/images/1AdventureTime.png"];
+    var nameSetSix = []
+    var imageSetSeven = ["/assets/images/league/l1.png", "/assets/images/league/l2.png", "/assets/images/league/l3.png", "/assets/images/league/l4.png", "/assets/images/league/l5.png", "/assets/images/league/l6.png", "/assets/images/league/l7.png", "/assets/images/league/l8.png", "/assets/images/league/l9.png", "/assets/images/league/l10.png", "/assets/images/league/l11.png", "/assets/images/league/l12.png", "/assets/images/league/l13.png"];
+    var nameSetSeven = []  
+    var imageSetEight = ["/assets/images/fireEmblem/fe1.png", "/assets/images/fireEmblem/fe2.png", "/assets/images/fireEmblem/fe3.png", "/assets/images/fireEmblem/fe4.png", "/assets/images/fireEmblem/fe5.png", "/assets/images/fireEmblem/fe6.png", "/assets/images/fireEmblem/fe7.png", "/assets/images/fireEmblem/fe8.png", "/assets/images/fireEmblem/fe9.png", "/assets/images/fireEmblem/fe10.png", "/assets/images/fireEmblem/fe11.png", "/assets/images/fireEmblem/fe12.png", "/assets/images/fireEmblem/fe13.png"];
+    var nameSetEight = []
     var imagesSet = [imageSetOne, imageSetTwo, imageSetThree, imageSetFour, imageSetFive, imageSetSix, imageSetSeven, imageSetEight]
+    var namesSet = [nameSetOne, nameSetTwo, nameSetThree, nameSetFour, nameSetFive, nameSetSix, nameSetSeven, nameSetEight]
     var colors = ["0red", "1grey", "2blue", "3brown", "4green", "5orange", "6yellow", "7purple"];
     for (var i=0; i<colors.length; i++) {
         for (var j=0; j<13; j++) {
             db.Cards.create({
                 color: colors[i],
                 number: (j+1),
-                image: imagesSet[i][j]
+                image: imagesSet[i][j],
+                name: namesSet[i][j]
             });
         }
     }
