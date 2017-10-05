@@ -55,6 +55,7 @@ body {
     height: 100%;
     padding: 14.5px;
 }
+
 #gameBox {
     height: 92vh;
 }
@@ -63,6 +64,11 @@ body {
     margin:0;
     padding:0;
     height: 30%;
+}
+
+.noMarg1 {
+    margin: 10px 0;
+    padding:0;
 }
 
 #battleBoxPlayer,
@@ -79,13 +85,13 @@ body {
 
 }
 .deckBox {
-    background-color: rgba(255, 255, 0, 0.35);
+    /* background-color: rgba(255, 255, 0, 0.35); */
     height:15vh;
+    float: left;
 }
 
 #hand {
-    height: 100%;
-
+    height: 90%;
 }
 
 /* INDEX PAGE STYLING */
@@ -102,6 +108,11 @@ body {
 #signUp {
     width: 400px;
     margin: 0 auto;
+}
+
+#signInEmail,
+#signInPass {
+    margin-top:10px;
 }
 
 input#name.validate,
