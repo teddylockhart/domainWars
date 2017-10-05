@@ -99,9 +99,6 @@ $(document).ready(function () {
         $("#roundUp").hide();
         $("#battleBoxPlayer").html("");
         $("#battleBoxComp").html("");
-        $("#playerDiscard").html("<img id='hand' src='"+player.last.image+"'>" + "<h5>"+(player.discard.length + 1)+"</h5>");
-        $("#compDiscard").html("<img id='hand' src='"+computer.last.image+"'>");
-
         updateCards();
 
         waiting = false;
@@ -254,8 +251,9 @@ $(document).ready(function () {
             var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number,
                 parseInt(compCard.color.charAt(0)), compCard.number);
 
-            $("#battleBoxPlayer").html("<img id='hand' src='"+player.hand[num].image+"'>");
-            $("#battleBoxComp").html("<img id='hand' src='"+compCard.image+"'>");
+            $("#battleBoxPlayer").html("<img class='hand' src='"+player.hand[num].image+"'>");
+            $("#battleBoxComp").html("<img class='hand' src='"+compCard.image+"'>");
+            $("#hand"+num).hide();
             $("#roundUp").show();
 
             // Depending on outcome, call proper playCard functions on each player
@@ -311,8 +309,8 @@ $(document).ready(function () {
             var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number,
                 parseInt(compCard.color.charAt(0)), compCard.number);
 
-            $("#battleBoxPlayer").html("<img id='hand' src='"+player.hand[num].image+"'>");
-            $("#battleBoxComp").html("<img id='hand' src='"+compCard.image+"'>");
+            $("#battleBoxPlayer").html("<img class='hand' src='"+player.hand[num].image+"'>");
+            $("#battleBoxComp").html("<img class='hand' src='"+compCard.image+"'>");
             $("#roundUp").show();
 
             // Depending on outcome, call proper playCard functions on each player
@@ -445,18 +443,24 @@ $(document).ready(function () {
     function updateCards() {
         for (var i = 0; i < 3; i++) {
             if (player.cardCount > i) {
-                $("#playercard" + i).html("<img id='hand' src='"+player.hand[i].image+"'>");
+                $("#playercard" + i).html("<img id='hand"+ i +"' class='hand' src='"+player.hand[i].image+"'>");
             }
             else {
                 $("#playercard" + i).hide();
             }
             if (computer.cardCount > i) {
-                $("#computercard" + i).html("<img id='hand' src='"+computer.hand[i].image+"'>");
+                $("#computercard" + i).html("<img class='hand' src='"+computer.hand[i].image+"'>");
             }
             else {
                 $("#computercard" + i).hide();
             }
         }
+        $("#playerDiscard").html("<img id='discard' src='"+player.last.image+"'>");
+        $("#playerDeckNum").html("Deck: "+ player.deck.length);
+        $("#playerDiscardNum").html("Discard: "+ player.discard.length);
+        $("#compDeckNum").html("Deck: "+ computer.deck.length);
+        $("#compDiscardNum").html("Discard: "+ computer.discard.length);
+        $("#compDiscard").html("<img id='discard' src='"+computer.last.image+"'>");
     }
 
     function setUpPlayers(playerDeck) {
