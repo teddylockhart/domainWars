@@ -96,8 +96,9 @@ $(document).ready(function () {
         $("#roundUp").hide();
         $("#battleBoxPlayer").html("");
         $("#battleBoxComp").html("");
-        $("#playerDiscard").html("<img id='hand' src='"+player.last.image+"'>");
+        $("#playerDiscard").html("<img id='hand' src='"+player.last.image+"'>" + "<h5>"+(player.discard.length + 1)+"</h5>");
         $("#compDiscard").html("<img id='hand' src='"+computer.last.image+"'>");
+
         updateCards();
 
         waiting = false;
