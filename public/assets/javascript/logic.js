@@ -248,8 +248,8 @@ $(document).ready(function () {
             var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number,
                 parseInt(compCard.color.charAt(0)), compCard.number);
 
-            $("#battleBoxPlayer").html("<img class='hand' src='"+player.hand[num].image+"'>");
-            $("#battleBoxComp").html("<img class='hand' src='"+compCard.image+"'>");
+            $("#battleBoxPlayer").html("<img id='playerDropBox' class='played' src='"+player.hand[num].image+"'>");
+            $("#battleBoxComp").html("<img id='compDropBox' class='played' src='"+compCard.image+"'>");
             $("#hand"+num).hide();
 
             $("#comphand"+compChoice).hide();
@@ -260,16 +260,22 @@ $(document).ready(function () {
             switch (outcome) {
                 case "win":
                     $("#resultMessage").html(player.hand[num].name+" defeats "+compCard.name);
+                    $("#battleBoxComp").css("color", "red");
+                    $("#battleBoxPlayer").css("color", "white");
                     player.playCard(num, false);
                     computer.playCard(compChoice, true);
                     break;
                 case "lose":
                     $("#resultMessage").html(compCard.name+" defeats "+player.hand[num].name);
+                    $("#battleBoxPlayer").css("color", "red");
+                    $("#battleBoxComp").css("color", "white");
                     player.playCard(num, true);
                     computer.playCard(compChoice, false);
                     break;
                 case "draw":
                     $("#resultMessage").html("Draw!");
+                    $("#battleBoxComp").css("color", "red");
+                    $("#battleBoxPlayer").css("color", "red");
                     player.playCard(num, true);
                     computer.playCard(compChoice, true);
                     break;
@@ -479,7 +485,7 @@ $(document).ready(function () {
                     tempcomputer.last, tempcomputer.discard);
                 computer.cardCount = tempcomputer.cardCount;
             }
-            
+
             game = data.gameInProgress;
 
             if (game) {
