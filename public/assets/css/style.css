@@ -152,10 +152,17 @@ div.container {
 }
 
 /* DECKBUILDER PAGE STYLING */
+@media screen and (min-width: 1200px) {
+    #deckbuilder .collapsible-body {
+        background-color: blue;
+    }
+}
+
 #deckbuilder .collapsible-body {
     background-color: #dddbd6;
     color: black;
-    height: 390px;
+    /* overflow: hidden; */
+    text-align: center;
 }
 
 #deckbuilder ul.collapsible.popout {
@@ -164,7 +171,6 @@ div.container {
 
 #deckbuilder #deckChoice {
     width: 100%;
-
 }
 
 #deckbuilder #deckcontainer {
@@ -172,9 +178,10 @@ div.container {
 }
 
 .deck {
-    width: 12%;
+    width: 11%;
     margin: 1%;
-    float: left;
+    /* to keep individual cards centered */
+    display: inline-block;
 }
 
 .collapsible-header {
