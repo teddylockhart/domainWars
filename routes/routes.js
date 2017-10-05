@@ -47,7 +47,7 @@ module.exports = function(app) {
                 else if ((i/13) < 5) {cardArray5.push(cards[i].dataValues);}
                 else if ((i/13) < 6) {cardArray6.push(cards[i].dataValues);}
                 else if ((i/13) < 7) {cardArray7.push(cards[i].dataValues);}
-                else if ((i/13) < 7) {cardArray8.push(cards[i].dataValues);}
+                else if ((i/13) < 8) {cardArray8.push(cards[i].dataValues);}
             }
 
 
