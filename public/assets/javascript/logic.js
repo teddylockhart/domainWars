@@ -21,7 +21,8 @@ $(document).ready(function () {
     $("#introArena").hide();
     $("#gameArena").hide();
     $("#modalButton").hide();
-   
+
+    // JQuery for the modal
     $('.modal').modal({
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background
@@ -223,6 +224,20 @@ $(document).ready(function () {
         firebase.auth().signOut();
     });
 
+    // This code runs when the Arena button is pressed
+    $("#arenaBtn").on("click", function() {
+        window.location.assign("/arena");
+    });
+    // This code runs when the Builder button is pressed
+    $("#builderBtn").on("click", function() {
+        window.location.assign("/deckbuilder");
+    });
+    // This code runs when the Home button is pressed
+    $("#homeBtn").on("click", function() {
+        window.location.assign("/profile");
+    });
+    // This code changes the sign in box to the sign up box
+
     $("#switchToSignUp").on("click", function () {
         $("#signIn").hide();
         $("#signUp").show();
@@ -244,7 +259,11 @@ $(document).ready(function () {
             // Outcome is decided by battle function
             var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number,
                 parseInt(compCard.color.charAt(0)), compCard.number);
-
+          
+            // Put the played cards into the battle boxes
+            $("#battleBoxPlayer").html("<img class='played' src='"+player.hand[num].image+"'>");
+            $("#battleBoxComp").html("<img class='played' src='"+compCard.image+"'>");
+            // Hide the played cards in the players' hands
             $("#battleBoxPlayer").html("<img id='playerDropBox' class='played' src='"+player.hand[num].image+"'>");
             $("#battleBoxComp").html("<img id='compDropBox' class='played' src='"+compCard.image+"'>");
             $("#hand"+num).hide();
