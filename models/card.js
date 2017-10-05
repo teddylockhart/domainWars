@@ -1,3 +1,4 @@
+// Table that holds all the cards in the card deck
 module.exports = function(sequelize, DataTypes) {
     var Cards = sequelize.define("Cards", {
       color: {
@@ -18,6 +19,6 @@ module.exports = function(sequelize, DataTypes) {
       name: {
         type: DataTypes.STRING
       }
-    });
+    },{timestamps: false});
     return Cards;
 };

@@ -1,3 +1,4 @@
+// Table that holds all the users emails, usernames, wins and losses
 module.exports = function(sequelize, DataTypes) {
     var Users = sequelize.define("Users", {
       email: {

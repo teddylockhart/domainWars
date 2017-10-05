@@ -1,3 +1,4 @@
+// Table that holds all the cards in every users decklist
 module.exports = function(sequelize, DataTypes) {
     var Decks = sequelize.define("Decks", {
       color: {
