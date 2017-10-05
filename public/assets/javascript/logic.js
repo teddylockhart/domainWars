@@ -479,9 +479,6 @@ $(document).ready(function () {
                     tempcomputer.last, tempcomputer.discard);
                 computer.cardCount = tempcomputer.cardCount;
             }
-
-            
-            
             
             game = data.gameInProgress;
 
