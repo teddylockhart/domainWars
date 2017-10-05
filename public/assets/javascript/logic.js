@@ -97,6 +97,7 @@ $(document).ready(function () {
         $("#roundUp").hide();
         $("#battleBoxPlayer").html("");
         $("#battleBoxComp").html("");
+
         $("#playerDiscard").html("<img class='hand' src='"+player.last.image+"'>" + "<h5>"+(player.discard.length + 1)+"</h5>");
         $("#compDiscard").html("<img class='hand' src='"+computer.last.image+"'>");
         $("#resultMessage").html("");
@@ -250,7 +251,9 @@ $(document).ready(function () {
             $("#battleBoxPlayer").html("<img class='hand' src='"+player.hand[num].image+"'>");
             $("#battleBoxComp").html("<img class='hand' src='"+compCard.image+"'>");
             $("#hand"+num).hide();
+
             $("#comphand"+compChoice).hide();
+
             $("#roundUp").show();
 
             // Depending on outcome, call proper playCard functions on each player
@@ -408,18 +411,28 @@ $(document).ready(function () {
     function updateCards() {
         for (var i = 0; i < 3; i++) {
             if (player.cardCount > i) {
+
                 $("#playercard" + i).html("<img class='hand' id='hand" + i + "' src='"+player.hand[i].image+"'>");
+
             }
             else {
                 $("#playercard" + i).hide();
             }
             if (computer.cardCount > i) {
+
                 $("#computercard" + i).html("<img class='hand' id='comphand" + i + "' src='"+computer.hand[i].image+"'>");
+
             }
             else {
                 $("#computercard" + i).hide();
             }
         }
+        $("#playerDiscard").html("<img id='discard' src='"+player.last.image+"'>");
+        $("#playerDeckNum").html("Deck: "+ player.deck.length);
+        $("#playerDiscardNum").html("Discard: "+ player.discard.length);
+        $("#compDeckNum").html("Deck: "+ computer.deck.length);
+        $("#compDiscardNum").html("Discard: "+ computer.discard.length);
+        $("#compDiscard").html("<img id='discard' src='"+computer.last.image+"'>");
     }
 
     function setUpPlayers(playerDeck) {
