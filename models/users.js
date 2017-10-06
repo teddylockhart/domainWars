@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       record: {
-        type: DataTypes.FLOAT
+        type: DataTypes.FLOAT(3,2)
       }
     });
     return Users;
