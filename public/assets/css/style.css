@@ -212,7 +212,8 @@ div.container {
     margin-left: 10px;
 }
 
-.deckCard {
+.deckCard,
+.profCard {
     width: 100%;
     border-radius: 6%;
 }

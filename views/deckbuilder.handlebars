@@ -28,30 +28,34 @@
         <div class="center-align"id="deckMessage">Your Deck</div>
         <div class="row">
             <div class="col s1 m1 l1"></div>
-            <div id="deckCard0" class="col s1 m1 l1"></div>
-            <div id="deckCard1" class="col s1 m1 l1"></div>
-            <div id="deckCard2" class="col s1 m1 l1"></div>
-            <div id="deckCard3" class="col s1 m1 l1"></div>
-            <div id="deckCard4" class="col s1 m1 l1"></div>
-            <div id="deckCard5" class="col s1 m1 l1"></div>
-            <div id="deckCard6" class="col s1 m1 l1"></div>
-            <div id="deckCard7" class="col s1 m1 l1"></div>
-            <div id="deckCard8" class="col s1 m1 l1"></div>
-            <div id="deckCard9" class="col s1 m1 l1"></div>
+            <div id="deckCard0" class="col s2 m1 l1"></div>
+            <div id="deckCard1" class="col s2 m1 l1"></div>
+            <div id="deckCard2" class="col s2 m1 l1"></div>
+            <div id="deckCard3" class="col s2 m1 l1"></div>
+            <div id="deckCard4" class="col s2 m1 l1"></div>
+            <div class="col s1 m0"></div>
+            <div class="col s1 m0"></div>
+            <div id="deckCard5" class="col s2 m1 l1"></div>
+            <div id="deckCard6" class="col s2 m1 l1"></div>
+            <div id="deckCard7" class="col s2 m1 l1"></div>
+            <div id="deckCard8" class="col s2 m1 l1"></div>
+            <div id="deckCard9" class="col s2 m1 l1"></div>
             <div class="col s1 m1 l1"></div>
         </div>
         <div class="row">
             <div class="col s1 m1 l1" ></div>
-            <div id="deckCard10" class="col s1 m1 l1"></div>
-            <div id="deckCard11" class="col s1 m1 l1"></div>
-            <div id="deckCard12" class="col s1 m1 l1"></div>
-            <div id="deckCard13" class="col s1 m1 l1"></div>
-            <div id="deckCard14" class="col s1 m1 l1"></div>
-            <div id="deckCard15" class="col s1 m1 l1"></div>
-            <div id="deckCard16" class="col s1 m1 l1"></div>
-            <div id="deckCard17" class="col s1 m1 l1"></div>
-            <div id="deckCard18" class="col s1 m1 l1"></div>
-            <div id="deckCard19" class="col s1 m1 l1"></div>
+            <div id="deckCard10" class="col s2 m1 l1"></div>
+            <div id="deckCard11" class="col s2 m1 l1"></div>
+            <div id="deckCard12" class="col s2 m1 l1"></div>
+            <div id="deckCard13" class="col s2 m1 l1"></div>
+            <div id="deckCard14" class="col s2 m1 l1"></div>
+            <div class="col s1 m0"></div>
+            <div class="col s1 m0"></div>
+            <div id="deckCard15" class="col s2 m1 l1"></div>
+            <div id="deckCard16" class="col s2 m1 l1"></div>
+            <div id="deckCard17" class="col s2 m1 l1"></div>
+            <div id="deckCard18" class="col s2 m1 l1"></div>
+            <div id="deckCard19" class="col s2 m1 l1"></div>
             <div class="col s1 m1 l1"></div>
         </div>
     </div>
@@ -64,7 +68,7 @@
                 {{#each group1}}
                 <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <span class="characterName">{{this.name}}</span>
-                    <img id="deckChoice" src={{this.image}}>
+                    <img class="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
             </div>
@@ -76,7 +80,7 @@
                 {{#each group2}}
                 <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <span class="characterName">{{this.name}}</span>
-                    <img id="deckChoice" src={{this.image}}>
+                    <img class="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
             </div>
@@ -89,7 +93,7 @@
                 {{#each group3}}
                 <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <span class="characterName">{{this.name}}</span>
-                    <img id="deckChoice" src={{this.image}}>
+                    <img class="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
             </div>
@@ -101,7 +105,7 @@
                 {{#each group4}}
                 <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <span class="characterName">{{this.name}}</span>
-                    <img id="deckChoice" src={{this.image}}>
+                    <img class="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
             </div>
@@ -113,7 +117,7 @@
                 {{#each group5}}
                 <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <span class="characterName">{{this.name}}</span>
-                    <img id="deckChoice" src={{this.image}}>
+                    <img class="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
             </div>
@@ -125,7 +129,7 @@
                 {{#each group6}}
                 <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <span class="characterName">{{this.name}}</span>
-                    <img id="deckChoice" src={{this.image}}>
+                    <img class="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
             </div>
@@ -137,7 +141,7 @@
                 {{#each group7}}
                 <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <span class="characterName">{{this.name}}</span>
-                    <img id="deckChoice" src={{this.image}}>
+                    <img class="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
             </div>
@@ -149,7 +153,7 @@
                 {{#each group8}}
                 <div id={{this.id}} class="deck" datacol={{this.color}} datanum={{this.number}} dataimg={{this.image}}>
                     <span class="characterName">{{this.name}}</span>
-                    <img id="deckChoice" src={{this.image}}>
+                    <img class="deckChoice" src={{this.image}}>
                 </div>
                 {{/each}}
             </div>

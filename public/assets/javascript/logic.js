@@ -569,6 +569,7 @@ $(document).ready(function () {
                         $("#deckCard" + i).attr("datanum", data[i].number);
                         $("#deckCard" + i).attr("datacardnum", data[i].cardNumber);
                         $("#deckCard" + i).html("<img class='deckCard' src='" + data[i].image + "'>");
+                        $("#profCard" + i).html("<img class='profCard' src='" + data[i].image + "'>");
     
                         $("#"+data[i].cardNumber).hide();
                     }
