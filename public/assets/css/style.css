@@ -16,6 +16,10 @@
     color: white;
 }
 
+#infographic-arena {
+    height: 100%;
+}
+
 #rulesBox {
     height:90vh;
 }
