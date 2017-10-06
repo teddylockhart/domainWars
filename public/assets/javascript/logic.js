@@ -440,7 +440,7 @@ $(document).ready(function () {
                     $("#endMessage").html("You have won! Congratulations, keep up the good work.");
                     // Update the players win count
                     var newWins = data.wins + 1;
-                    var newRecord = 100 * (newWins)/(newWins + data.losses);
+                    var newRecord = parseInt(100 * (newWins)/(newWins + data.losses));
                     $.ajax({
                         method: "PUT",
                         url: "/player/" + firebase.auth().currentUser.email + "/win/" + newWins +"/"+newRecord,
@@ -453,7 +453,7 @@ $(document).ready(function () {
                     $("#endMessage").html("You have been defeated! Better luck next time.");
                     // Update the players loss count
                     var newLosses = data.losses + 1;
-                    var newRecord = 100 * (data.wins)/(data.wins + newLosses);
+                    var newRecord = parseInt(100 * (data.wins)/(data.wins + newLosses));
                     $.ajax({
                         method: "PUT",
                         url: "/player/" + firebase.auth().currentUser.email + "/lose/" + newLosses +"/"+newRecord,
