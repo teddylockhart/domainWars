@@ -318,7 +318,7 @@ $(document).ready(function () {
         })
         // This code is run when a user clicks on one of the cards in their deck on the deckbuilder page,
         // deleting the card from their deck and adding it back to the card list
-        $(".deckCard").on("click", function() {
+        $(".cardInDeck").on("click", function() {
             // Get the number of the card
             var number = parseInt($(this).attr("datacardnum"));
             // Show the card with the matching number in the card list
