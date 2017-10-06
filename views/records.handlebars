@@ -1,0 +1,63 @@
+{{!-- Navbar postlogin --}}
+<nav>
+    <div class="nav-wrapper">
+        <div class="row center-align">
+            <div class="col s1 navHov">
+            </div>
+            <div id="arenaBtn" class="col s2 navHov">
+                <a>Arena</a>
+            </div>
+            <div id="builderBtn" class="col s2 navHov">
+                <a>Builder</a>
+            </div>
+            <div id="top5Btn" class="col s2 navHov">
+                <a>Top 5 Players</a>
+            </div>
+            <div id="homeBtn" class="col s2 navHov">
+                <a>Home</a>
+            </div>
+            <div id="logOutBtn" class="col s2 navHov">
+                <a>Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container center-align">
+    <div class="card-panel records center-align">
+        <h1>Top 5 Players</h1>
+        <div class="row">
+            <div class="col s3">
+                <h4>Username</h4>
+            </div>
+            <div class="col s3">
+                <h4>Wins</h4>
+            </div>
+            <div class="col s3">
+                <h4>Losses</h4>
+            </div>
+            <div class="col s3">
+                <h4>Win Rate</h4>
+            </div>
+        </div>
+        <hr><br>
+    
+    {{#each top5}}
+        <div class="row">
+            <div class="col s3">
+                {{this.username}}
+            </div>
+            <div class="col s3">
+                {{this.wins}}
+            </div>
+            <div class="col s3">
+                {{this.losses}}
+            </div>
+            <div class="col s3">
+                {{this.record}}%
+            </div>
+        </div>
+        <hr><br>
+    {{/each}}
+    </div>
+</div>

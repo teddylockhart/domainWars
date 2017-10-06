@@ -16,6 +16,9 @@ module.exports = function(sequelize, DataTypes) {
       losses: {
         type: DataTypes.INTEGER,
         allowNull: false
+      },
+      record: {
+        type: DataTypes.FLOAT
       }
     });
     return Users;

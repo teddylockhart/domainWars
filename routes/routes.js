@@ -47,6 +47,16 @@ module.exports = function(app) {
                                     group8: cardArray8});
         })
     });
+    // HTML route for the records page
+    app.get("/records", function(req, res){
+        db.Users.findAll({order: [['record', 'DESC']]}).then(users =>{
+            var top5 = [];
+            for (var i=0; i<5; i++){
+                top5.push(users[i]);
+            }
+            res.render("records", {top5: top5});
+        })
+    })
     // API route that gets all the cards from the database
     app.get("/allcards", function(req, res){
         var cardArray = [];
@@ -91,7 +101,8 @@ module.exports = function(app) {
                     email: req.body.email,
                     username: req.body.username,
                     wins: 0,
-                    losses: 0
+                    losses: 0,
+                    record: 0
                 })
                 res.send(true);
             }
@@ -159,16 +170,16 @@ module.exports = function(app) {
         })
     });
     // API route that updates a users wins or losses based on the information in the parameters
-    app.put("/player/:user/:result/:num", function(req, res){
+    app.put("/player/:user/:result/:num/:record", function(req, res){
         if (req.params.result === "win") {
-            db.Users.update({ wins: req.params.num}, {
+            db.Users.update({ wins: req.params.num, record: req.params.record}, {
                 where: {email: req.params.user}
             }).then(user =>{
                 res.end();
             })
         }
         else {
-            db.Users.update({ losses: req.params.num}, {
+            db.Users.update({ losses: req.params.num, record: req.params.record}, {
                 where: {email: req.params.user}
             }).then(user =>{
                 res.end();
