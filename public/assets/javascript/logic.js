@@ -21,7 +21,8 @@ $(document).ready(function () {
     $("#introArena").hide();
     $("#gameArena").hide();
     $("#modalButton").hide();
-   
+
+    // JQuery for the modal
     $('.modal').modal({
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background
@@ -30,8 +31,6 @@ $(document).ready(function () {
         startingTop: '8%', // Starting top style attribute
         endingTop: '12%', // Ending top style attribute
         ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-            
-            console.log(modal, trigger);
           }
       }
     );
@@ -109,7 +108,6 @@ $(document).ready(function () {
 
     $("#goToArena").on("click", function () {
         $.get("/deck/" + firebase.auth().currentUser.email, function (data) {
-            console.log(data);
             if (data.length === 20) {
                 window.location.assign("/arena");
             }
@@ -226,6 +224,20 @@ $(document).ready(function () {
         firebase.auth().signOut();
     });
 
+    // This code runs when the Arena button is pressed
+    $("#arenaBtn").on("click", function() {
+        window.location.assign("/arena");
+    });
+    // This code runs when the Builder button is pressed
+    $("#builderBtn").on("click", function() {
+        window.location.assign("/deckbuilder");
+    });
+    // This code runs when the Home button is pressed
+    $("#homeBtn").on("click", function() {
+        window.location.assign("/profile");
+    });
+    // This code changes the sign in box to the sign up box
+
     $("#switchToSignUp").on("click", function () {
         $("#signIn").hide();
         $("#signUp").show();
@@ -247,9 +259,13 @@ $(document).ready(function () {
             // Outcome is decided by battle function
             var outcome = battle(parseInt(player.hand[num].color.charAt(0)), player.hand[num].number,
                 parseInt(compCard.color.charAt(0)), compCard.number);
-
-            $("#battleBoxPlayer").html("<img class='hand' src='"+player.hand[num].image+"'>");
-            $("#battleBoxComp").html("<img class='hand' src='"+compCard.image+"'>");
+          
+            // Put the played cards into the battle boxes
+            $("#battleBoxPlayer").html("<img class='played' src='"+player.hand[num].image+"'>");
+            $("#battleBoxComp").html("<img class='played' src='"+compCard.image+"'>");
+            // Hide the played cards in the players' hands
+            $("#battleBoxPlayer").html("<img id='playerDropBox' class='played' src='"+player.hand[num].image+"'>");
+            $("#battleBoxComp").html("<img id='compDropBox' class='played' src='"+compCard.image+"'>");
             $("#hand"+num).hide();
 
             $("#comphand"+compChoice).hide();
@@ -260,16 +276,22 @@ $(document).ready(function () {
             switch (outcome) {
                 case "win":
                     $("#resultMessage").html(player.hand[num].name+" defeats "+compCard.name);
+                    $("#battleBoxComp").css("color", "red");
+                    $("#battleBoxPlayer").css("color", "white");
                     player.playCard(num, false);
                     computer.playCard(compChoice, true);
                     break;
                 case "lose":
                     $("#resultMessage").html(compCard.name+" defeats "+player.hand[num].name);
+                    $("#battleBoxPlayer").css("color", "red");
+                    $("#battleBoxComp").css("color", "white");
                     player.playCard(num, true);
                     computer.playCard(compChoice, false);
                     break;
                 case "draw":
                     $("#resultMessage").html("Draw!");
+                    $("#battleBoxComp").css("color", "red");
+                    $("#battleBoxPlayer").css("color", "red");
                     player.playCard(num, true);
                     computer.playCard(compChoice, true);
                     break;
@@ -295,9 +317,6 @@ $(document).ready(function () {
             $.post("/updateGamestate", gameState, function(data){
 
             });
-            console.log(outcome);
-            console.log(player.cardCount);
-            console.log(computer.cardCount);
             waiting = true;
         }
     })
@@ -380,7 +399,6 @@ $(document).ready(function () {
             if (cardsLeft > 0) {
                 $("#endMessage").html("You have won! Congratulations, keep up the good work.");
                 var newWins = data.wins + 1;
-                console.log("Win " + newWins);
                 $.ajax({
                     method: "PUT",
                     url: "/player/" + firebase.auth().currentUser.email + "/win/" + newWins,
@@ -392,7 +410,6 @@ $(document).ready(function () {
             else if (compCardsLeft > 0) {
                 $("#endMessage").html("You have been defeated! Better luck next time.");
                 var newLosses = data.losses + 1;
-                console.log("Loss " + newLosses);
                 $.ajax({
                     method: "PUT",
                     url: "/player/" + firebase.auth().currentUser.email + "/lose/" + newLosses,
@@ -479,7 +496,7 @@ $(document).ready(function () {
                     tempcomputer.last, tempcomputer.discard);
                 computer.cardCount = tempcomputer.cardCount;
             }
-            
+
             game = data.gameInProgress;
 
             if (game) {
