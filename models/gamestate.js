@@ -1,4 +1,3 @@
-// Table that holds all the gamestates for all the users
 module.exports = function(sequelize, DataTypes) {
     var Gamestate = sequelize.define("Gamestates", {
       owner: {
