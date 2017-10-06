@@ -49,7 +49,7 @@ module.exports = function(app) {
     });
     // HTML route for the records page
     app.get("/records", function(req, res){
-        db.Users.findAll({order: [['record', 'DESC']]}).then(users =>{
+        db.Users.findAll({order: [['record', 'DESC'], ['wins', 'DESC'], ['losses', 'ASC']]}).then(users =>{
             var top5 = [];
             for (var i=0; i<5; i++){
                 top5.push(users[i]);
