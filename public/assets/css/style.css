@@ -16,6 +16,13 @@
     color: white;
 }
 
+#profile-avatar,
+#infographic-profile,
+#infographic-arena {
+    max-width: 100%;
+}
+
+
 #infographic-arena {
     height: 100%;
 }
@@ -56,6 +63,10 @@ nav {
 .navHov:hover {
     background-color: lightgray;
     color: black;
+}
+
+.onPage {
+    background-color: #686868;
 }
 
 #avatarImg {
