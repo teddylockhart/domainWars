@@ -165,7 +165,8 @@ body {
 #arenaBtn:hover,
 #logOutBtn:hover,
 #homeBtn:hover,
-#builderBtn:hover {
+#builderBtn:hover,
+#top5Btn:hover {
     cursor: pointer;
 }
 
