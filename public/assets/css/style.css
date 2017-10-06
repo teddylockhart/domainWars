@@ -17,7 +17,6 @@
 }
 
 #rulesBox {
-    background-color: green;
     height:90vh;
 }
 
@@ -147,12 +146,13 @@ body {
 .hand {
     height: 90%;
     box-shadow:10px 20px 30px;
+    border-radius: 6%;
 }
 
 .played {
     height: 90%;
     box-shadow:0px 0px 30px;
-    border-radius: 44px;
+    border-radius: 6%;
 }
 
 /* INDEX PAGE STYLING */
@@ -200,6 +200,7 @@ div.container {
 
 .deckCard {
     width: 100%;
+    border-radius: 6%;
 }
 
 @media screen and (max-width: 695px) {
@@ -241,6 +242,7 @@ div.container {
 
 #deckbuilder #deckChoice {
     width: 100%;
+    border-radius: 6%;
 }
 
 #deckbuilder #deckcontainer {
@@ -309,7 +311,7 @@ div.container {
 
 /* Fire Emblem */
 #deckbuilder #coll8 {
-    background-color: #4b3b9c;   
+    background-color: #fb92d6;   
 }
 
 /* Favicons */
