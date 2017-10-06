@@ -260,7 +260,7 @@ div.container {
     margin-bottom: 75px;
 }
 
-#deckbuilder #deckChoice {
+#deckbuilder .deckChoice {
     width: 100%;
     border-radius: 6%;
 }
