@@ -277,6 +277,10 @@ div.container {
     
 }
 
+.hide-on-med-and-up {
+    min-height: 40%;
+}
+
 .profile {
     padding-bottom: 0;
     padding-right:0;
