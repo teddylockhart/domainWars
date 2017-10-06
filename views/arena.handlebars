@@ -2,17 +2,17 @@
 <nav>
     <div class="nav-wrapper">
         <div class="row center-align">
-            <div class="col s3 navHov">
-                <a href="/arena">Arena</a>
+            <div id="arenaBtn" class="col s3 navHov">
+                <a>Arena</a>
             </div>
-            <div class="col s3 navHov">
-                <a href="/deckbuilder">Builder</a>
+            <div id="builderBtn" class="col s3 navHov">
+                <a>Builder</a>
             </div>
-            <div class="col s3 navHov">
-                <a href="/profile">Home</a>
+            <div id="homeBtn" class="col s3 navHov">
+                <a>Home</a>
             </div>
             <div id="logOutBtn" class="col s3 navHov">
-                <a href="/">Logout</a>
+                <a>Logout</a>
             </div>
         </div>
     </div>
@@ -57,22 +57,16 @@
                     <div id="computercard2" class="col s4 m4 l4 center-align valign-wrapper"></div>
                 </div>
             </div>
-            <div class="col s2 m2 l2 avatarBox">
-                <img id="avatarImg" src="assets/images/avatar-placeholder2.png">
-            </div>
+            <div class="col s2 m2 l2 avatarBox"></div>
         </div>
 
         <div class="row noMarg">
             <div class="col s2 m2 l2"></div>
             <div class="col s8 m8 l8">
                 <div class="row noMarg">
-                    <div id="battleBoxPlayer" class="col s4 m4 l4 center-align valign-wrapper">
-
-                        Pick a card to start the battle!!
-
-                    </div>
+                    <div id="battleBoxPlayer" class="col s4 m4 l4 center-align valign-wrapper"></div>
                     <div id="centerBox" class="col s4 m4 l4 center-align valign-wrapper">
-                        <p id="resultMessage"></p>
+                        <p id="resultMessage"> Pick a card to start the battle!!</p>
                         <a id="roundUp" class="waves-effect waves-light btn">Next Round</a>
                         <!-- Modal Trigger -->
                         <a id="modalButton" class="waves-effect waves-light btn modal-trigger" href="#modal1">Results</a>
@@ -95,9 +89,7 @@
         </div>
 
         <div class="row noMarg">
-            <div class="col s2 m2 l2 avatarBox">
-                <img id="avatarImg" src="assets/images/avatar-placeholder.png">
-            </div>
+            <div class="col s2 m2 l2 avatarBox"></div>
             <div class="col s8 m8 l8">
                 <div class="row noMarg">
                     <div id="playercard0" data=0 class="col s4 m4 l4 playercard center-align valign-wrapper"></div>

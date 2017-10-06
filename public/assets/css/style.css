@@ -12,7 +12,7 @@
 }
 
 #resultMessage {
-    font-size: 24px;
+    font-size: 18px;
     color: white;
 }
 
@@ -80,6 +80,7 @@ body {
     background-color:#DDDBD6;
     height: 100%;
     padding: 14.5px;
+    border-radius: 10px;
 }
 
 #gameBox {
@@ -104,6 +105,7 @@ body {
     font-size: 30px;
     display:inline-block;
     padding-top:15px;
+    border-radius: 5px;
 }
 
 .avatarButton {
@@ -119,7 +121,6 @@ body {
     background-image: url("../images/deckBack.jpg");
     background-repeat: no-repeat;
     background-size: 67.5%;
-    /* background-attachment: fixed; */
     background-position: center;
 }
 
@@ -132,7 +133,6 @@ body {
 }
 
 .deckBox {
-    /* background-color: rgba(255, 255, 0, 0.35); */
     height:12vh;
     display:inline-block;
     padding-top:15px;
@@ -146,6 +146,13 @@ body {
 
 .hand {
     height: 90%;
+    box-shadow:10px 20px 30px;
+}
+
+.played {
+    height: 90%;
+    box-shadow:0px 0px 30px;
+    border-radius: 44px;
 }
 
 /* INDEX PAGE STYLING */
@@ -154,7 +161,11 @@ body {
 }
 
 #switchToSignIn:hover,
-#switchToSignUp:hover {
+#switchToSignUp:hover,
+#arenaBtn:hover,
+#logOutBtn:hover,
+#homeBtn:hover,
+#builderBtn:hover {
     cursor: pointer;
 }
 
@@ -241,9 +252,10 @@ div.container {
     margin: 1%;
     /* to keep individual cards centered */
     display: inline-block;
+    
 }
 
-.card-panel {
+.profile {
     padding-bottom: 0;
     padding-right:0;
 }
