@@ -228,6 +228,11 @@ div.container {
     width: 100%;
 }
 
+
+#infographic-profile {
+    display: inline-block;
+}
+
 /* DECKBUILDER PAGE STYLING */
 #deckbuilder .collapsible-body {
     background-color: #dddbd6;
