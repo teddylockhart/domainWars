@@ -292,6 +292,11 @@ div.container {
     margin-bottom: 10px;
 }
 
+#builderMessage {
+    font-size: 10px;
+    color: white;
+}
+
 /* Nintendo */
 #deckbuilder #coll1 {
     background-color: #981b1F;   
