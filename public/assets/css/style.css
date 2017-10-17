@@ -14,11 +14,16 @@ h4 {
     padding: 15px 7% 0 7%;
 }
 
+#labelText {
+    font-size: 28px;
+    color: white;
 
+}
 
 #resultMessage {
     font-size: 18px;
     color: white;
+    text-align: center;
 }
 
 #profile-avatar,
